@@ -1,0 +1,40 @@
+.card__image {
+  width: 328px;
+  height: 328px;
+  border-radius: 10px;
+}
+
+.card__section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 1360px;
+  height: 387px;
+  top: 220px;
+  left: 40px;
+}
+
+/* .weather__today {
+}
+
+.weather__today-info {
+  bottom: 20px;
+} */
+
+/* .weather__today-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+} */
+
+.weather__today-card {
+  flex-basis: calc(25% - 20px);
+  text-align: center;
+}
+
+/* .card__image {
+  width: 32px;
+  height: 328px;
+  border-radius: 10px;
+} */

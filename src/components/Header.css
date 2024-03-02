@@ -1,0 +1,95 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: darkred;
+  width: 1360px;
+  min-height: 60px;
+  top: 32px;
+  left: 40px;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.header__section-left {
+  display: flex;
+  /* flex-direction: row; */
+  gap: 20px;
+  align-items: center;
+}
+
+.header__section-right {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.header__button-add {
+  display: flex;
+  flex-direction: row;
+  width: 293px;
+  height: 25px;
+  gap: 20px;
+  align-items: center;
+}
+
+.header__add-clothes {
+  width: 116px;
+  height: 24px;
+}
+
+.header__avatar {
+}
+
+.header__logo {
+}
+
+.header__switch {
+  width: 56px;
+  height: 28px;
+  top: 6px;
+  left: 939px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s 0.5s;
+  /* position: absolute; */
+}
+
+.header__temp-switch:hover .header__switch {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.header__temp-switch-content {
+  width: 56px;
+  height: 28px;
+  border-radius: 20px;
+  border: 2px solid #7e7e7e;
+}
+.header__temp-switch-content-button {
+  font-family: "Cabinet Grotesk", sans-serif;
+  size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
+  width: 56px;
+  height: 28px;
+  border-radius: 20px;
+}
+
+.header__temp-celsius {
+  width: 28px;
+  height: 28px;
+  left: 28px;
+  background: #00000080;
+}
+
+.header__temp-farenheit {
+  width: 28px;
+  height: 28px;
+  background: #ffffff;
+}

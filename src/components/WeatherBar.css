@@ -1,0 +1,27 @@
+.weather__bar {
+  position: relative;
+
+  /* width: 1360px; */
+  height: 80px;
+  /* top: 100px; */
+  /* left: 40px; */
+}
+
+.weather__bar-temp {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  color: white;
+  width: 69px;
+  height: 40px;
+  font-family: Cabinet Grotesk;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.weather__bar-display {
+  width: 100%;
+}

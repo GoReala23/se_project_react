@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -7,6 +8,31 @@
   pointer-events: none;
 }
 
+.App__main {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  background: #f3f3f3;
+  /* width: 1440px; */
+  width: 1360px;
+  height: 822px;
+  gap: 20px;
+  background-color: darkred;
+  padding: 0 20px;
+}
+
+/* .App__main-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 1360px;
+  height: 387px;
+  background-color: chocolate;
+  gap: 20px;
+  top: 260px;
+  left: 240px;
+} */
+/* 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -35,4 +61,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
