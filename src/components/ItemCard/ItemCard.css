@@ -1,6 +1,6 @@
 .card__image {
-  width: 328px;
-  height: 328px;
+  width: 100%;
+  height: auto;
   border-radius: 10px;
 }
 
@@ -8,33 +8,19 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  width: 1360px;
-  height: 387px;
-  top: 220px;
-  left: 40px;
+  justify-content: center;
+  padding: 20px;
+  background-color: darkred;
 }
 
-/* .weather__today {
-}
-
-.weather__today-info {
-  bottom: 20px;
-} */
-
-/* .weather__today-cards {
+.card__container {
+  flex: 0 1 calc(33.3333% - 16px);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
-} */
-
-.weather__today-card {
-  flex-basis: calc(25% - 20px);
-  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
-/* .card__image {
-  width: 32px;
-  height: 328px;
-  border-radius: 10px;
-} */
+.card__name {
+  margin-top: 10px;
+}

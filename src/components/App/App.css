@@ -8,20 +8,6 @@
   pointer-events: none;
 }
 
-.App__main {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-content: center;
-  background: #f3f3f3;
-  /* width: 1440px; */
-  width: 1360px;
-  height: 822px;
-  gap: 20px;
-  background-color: darkred;
-  padding: 0 20px;
-}
-
 /* .App__main-content {
   display: flex;
   flex-direction: column;

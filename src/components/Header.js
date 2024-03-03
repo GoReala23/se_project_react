@@ -3,7 +3,7 @@ import avatar from "../components/images/Avatar.png";
 import logo from "../components/images/Logo.png";
 import "../components/Header.css";
 
-const Header = () => {
+const Header = ({ onCreateModal }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [temperatureUnit, setTemperatureUnit] = useState("Celsius");
 
@@ -40,7 +40,13 @@ const Header = () => {
           )}
         </div>
         <div className="header__button-add">
-          <button className="header__add-clothes">Add Clothes</button>
+          <button
+            type="text"
+            className="header__add-clothes"
+            onClick={onCreateModal}
+          >
+            Add Clothes
+          </button>
           {/* <p>{user}</p> */}
           <p>name</p>
         </div>
