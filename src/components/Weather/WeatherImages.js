@@ -4,7 +4,11 @@ const weatherImages = [
     day: true,
     src: require("./WeatherImages/DayWeather/day-cloudy.svg"),
   },
-  { type: "Fog", src: require("./WeatherImages/DayWeather/day-fog.svg") },
+  {
+    type: "Fog",
+    day: true,
+    src: require("./WeatherImages/DayWeather/day-fog.svg"),
+  },
   {
     type: "Rain",
     day: true,

@@ -1,37 +1,36 @@
 import { useEffect, useState } from "react";
-import weatherImages from "../Weather/WeatherImages";
+
 import "./WeatherBar.css";
+import weatherImages from "./WeatherImages";
 
-const WeatherBar = ({ weather }) => {
-  const [isDayTime, setIsDayTime] = useState(true);
-
-  // Simulated temperature value
-  const temperature = "Drippy";
+const WeatherBar = ({ currentWeather }) => {
+  const [weatherIcon, setWeatherIcon] = useState(null);
 
   useEffect(() => {
-    const currentHour = new Date().getHours();
-    setIsDayTime(currentHour >= 6 && currentHour < 18);
-  }, []);
+    if (currentWeather) {
+      const { type, day } = currentWeather;
 
-  const weatherType = isDayTime
-    ? weather
-    : weather === "Sunny"
-    ? "Moon"
-    : weather;
-  const weatherImageSrc =
-    weatherImages.find(
-      (image) => image.type === weatherType && image.day === isDayTime
-    )?.src.default || "";
+      // Find the matching weather image object based on the current weather type and day/night status
+      const matchingImage = weatherImages.find(
+        (image) => image.type === type && image.day === day
+      );
+
+      console.log(matchingImage);
+
+      if (matchingImage) {
+        setWeatherIcon(matchingImage.src.default);
+      } else {
+        console.log("No matching weather image found for:", currentWeather);
+      }
+    } else {
+      console.log("No weather data:", currentWeather);
+    }
+  }, [currentWeather]);
 
   return (
-    <section className="weather__bar" id="weather">
-      <div className="weather__bar-temp">{`${temperature}°F`}</div>
-      <img
-        className="weather__bar-display"
-        src={weatherImageSrc}
-        alt={weather}
-      />
-    </section>
+    <div className="weather-bar">
+      {weatherIcon && <img src={weatherIcon} alt="Weather Icon" />}
+    </div>
   );
 };
 

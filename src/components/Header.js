@@ -1,9 +1,9 @@
-import React, { useState, userState } from "react";
+import React, { useState } from "react";
 import avatar from "../components/images/Avatar.png";
 import logo from "../components/images/Logo.png";
 import "../components/Header.css";
 
-const Header = ({ onCreateModal }) => {
+const Header = ({ currentWeather, onCreateModal }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [temperatureUnit, setTemperatureUnit] = useState("Celsius");
 
@@ -14,7 +14,9 @@ const Header = ({ onCreateModal }) => {
     <header className="header">
       <div className=" header__section header__section-left">
         <img src={logo} alt="logo" className="header__logo" />
-        <p className="date-locatation">Time and Date</p>
+        <p className="date-locatation">
+          {currentWeather.city} {currentWeather.temperature} {temperatureUnit}
+        </p>
       </div>
       <div className="header__section header__section-right">
         <div
