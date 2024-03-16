@@ -1,10 +1,10 @@
 import { API_KEY, LOCATION } from "../utils/constants";
 import { weatherCodesLog } from "../utils/constants";
 
-const fetchWeatherData = async () => {
+const fetchWeatherData = async (temperatureUnit = "imperial") => {
   const { latitude, longitude } = LOCATION;
   const apiKey = API_KEY;
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${temperatureUnit}&appid=${apiKey}`;
 
   try {
     const response = await fetch(apiUrl);
@@ -20,7 +20,6 @@ const fetchWeatherData = async () => {
 };
 
 const extractWeatherInfo = (data) => {
-  console.log("data:", data);
   if (!data)
     return {
       city: "",
@@ -32,7 +31,7 @@ const extractWeatherInfo = (data) => {
   const temperature = Math.round(data.main.temp);
   const weatherCodes = data.weather[0].id;
   const type = weatherCodesLog(weatherCodes);
-  return { city, temperature, type, day: true };
+  const isDay = data.weather[0].icon.includes("d");
+  return { city, temperature, type, day: isDay };
 };
-
 export { fetchWeatherData, extractWeatherInfo };

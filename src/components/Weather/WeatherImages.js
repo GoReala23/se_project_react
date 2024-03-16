@@ -30,7 +30,7 @@ const weatherImages = [
     src: require("./WeatherImages/DayWeather/day-sunny.svg"),
   },
   {
-    type: "Moon",
+    type: "Sunny",
     day: false,
     src: require("./WeatherImages/NightWeather/night-moonlight.svg"),
   },

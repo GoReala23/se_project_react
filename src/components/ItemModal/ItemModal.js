@@ -1,6 +1,6 @@
 const ItemModal = ({ selectedCard, onClose }) => {
   return (
-    <div className={`modal `}>
+    <div className={"modal"}>
       <button type="button" onClick={onClose}>
         Close
       </button>

@@ -3,19 +3,26 @@ import avatar from "../components/images/Avatar.png";
 import logo from "../components/images/Logo.png";
 import "../components/Header.css";
 
-const Header = ({ currentWeather, onCreateModal }) => {
+const Header = ({
+  currentWeather,
+  onCreateModal,
+  onUnitChange,
+  temperatureUnit,
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [temperatureUnit, setTemperatureUnit] = useState("Celsius");
 
   const handleUnitChange = (unit) => {
-    setTemperatureUnit(unit);
+    onUnitChange(unit === "Celsius" ? "metric" : "imperial");
+    setIsDropdownOpen(false);
   };
+
+  const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
   return (
     <header className="header">
       <div className=" header__section header__section-left">
         <img src={logo} alt="logo" className="header__logo" />
         <p className="date-locatation">
-          {currentWeather.city} {currentWeather.temperature} {temperatureUnit}
+          {currentWeather.city} {currentWeather.temperature} {displayUnit}
         </p>
       </div>
       <div className="header__section header__section-right">
@@ -23,7 +30,8 @@ const Header = ({ currentWeather, onCreateModal }) => {
           className="header__temp-switch"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
-          <button className="header__switch">{temperatureUnit}</button>
+          <button className="header__switch">{displayUnit}</button>
+          {/* Drop Menu */}
           {isDropdownOpen && (
             <div className="header__temp-switch-content">
               <button

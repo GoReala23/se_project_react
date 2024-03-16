@@ -8,39 +8,35 @@ import Main from "../Main/Main";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import { fetchWeatherData, extractWeatherInfo } from "../Weather/ApiWeather";
+import defaultClothingItems from "../Weather/WeatherImages/WeatherClothes/DefaultClothingItems";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState({
     city: "",
     temperature: "",
     type: "",
-    day: "",
+    day: true,
   });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await fetchWeatherData();
-  //       const weatherInfo = extractWeatherInfo(data);
-  //       setCurrentWeather(weatherInfo);
-  //     } catch (error) {
-  //       console.error("Error fetching weather data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  const [temperatureUnit, setTemperatureUnit] = useState("imperial");
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
   useEffect(() => {
     async function getCurrentWeather() {
-      const data = await fetchWeatherData();
-      const weatherData = extractWeatherInfo(data);
-      setCurrentWeather(weatherData);
+      const data = await fetchWeatherData(temperatureUnit);
+      if (data) {
+        const weatherData = extractWeatherInfo(data);
+        setCurrentWeather(weatherData);
+      }
     }
 
     getCurrentWeather();
-  });
+  }, [temperatureUnit]);
+
+  const handleUnitChange = (unit) => {
+    setTemperatureUnit(unit);
+  };
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -53,43 +49,44 @@ function App() {
     setActiveModal("preview");
     setSelectedCard(card);
   };
-  console.log(selectedCard);
+
+  const handleAddNewItem = (newItem) => {
+    setClothingItems([...clothingItems, newItem]);
+    handleCloseModal();
+  };
+
   return (
     <div>
       <Header
         currentWeather={currentWeather}
         onCreateModal={handleCreateModal}
+        onUnitChange={setTemperatureUnit}
+        temperatureUnit={temperatureUnit}
       />
-      <WeatherBar currentWeather={currentWeather} />
-      <Main currentWeather={currentWeather} onSelectCard={handleSelectedCard} />
+      <WeatherBar
+        currentWeather={currentWeather}
+        temperatureUnit={temperatureUnit}
+      />
+      <Main
+        currentWeather={currentWeather}
+        onSelectCard={handleSelectedCard}
+        onUnitChange={setTemperatureUnit}
+        temperatureUnit={temperatureUnit}
+        clothingItems={clothingItems}
+      />
       <Footer />
       {activeModal === "create" && (
-        <ModalWithForm title="New Garments" onClose={handleCloseModal}>
-          <label>
-            Name
-            <input type="text" name="name" minLength="1" maxLength="30" />
-          </label>
-          <label>
-            Image
-            <input type="url" name="link" minLength="1" maxLength="30" />
-          </label>
-          <p> Select the weather type</p>
-          <div>
-            <input type="radio" id="hot" value="hot" />
-            <label> Hot</label>
-          </div>{" "}
-          <div>
-            <input type="radio" id="warm" value="warm" />
-            <label> Warm</label>
-          </div>{" "}
-          <div>
-            <input type="radio" id="Cold" value="cold" />
-            <label> Cold</label>
-          </div>
-        </ModalWithForm>
+        <ModalWithForm
+          title="New Garments"
+          onClose={handleCloseModal}
+          onAddNewItem={handleAddNewItem}
+        />
       )}
       {activeModal === "preview" && (
-        <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
+        <ItemModal selectedCard={selectedCard} onClose={handleCloseModal}>
+          {" "}
+          <img src={selectedCard.link} alt={selectedCard.name} />{" "}
+        </ItemModal>
       )}
     </div>
   );

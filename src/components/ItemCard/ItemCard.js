@@ -1,18 +1,25 @@
 import "./ItemCard.css";
 import React from "react";
 
-const ItemCard = ({ item, currentWeather, showWeatherInfo, onSelectCard }) => {
+const ItemCard = ({
+  item,
+  currentWeather,
+  showWeatherInfo,
+  onSelectCard,
+  temperatureUnit,
+}) => {
+  const clothesForWeather =
+    currentWeather?.type && item.types?.includes(currentWeather.type);
+
+  if (!clothesForWeather) {
+    return null;
+  }
   return (
     <div className="card__container">
-      <p>Today's weather is {currentWeather}. You may want to wear:</p>
+      <div></div>
       <div className="card__name">{item.name}</div>
-      <div>
-        <img
-          className="card__image"
-          src={item.link}
-          alt={item.name}
-          onClick={() => onSelectCard(item)}
-        />
+      <div onClick={() => onSelectCard(item)}>
+        <img className="card__image" src={item.link} alt={item.name} />
       </div>
     </div>
   );

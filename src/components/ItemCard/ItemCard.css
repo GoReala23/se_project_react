@@ -19,8 +19,10 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 16px;
+  position: relative;
 }
 
 .card__name {
   margin-top: 10px;
+  position: absolute;
 }
