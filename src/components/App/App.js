@@ -83,7 +83,11 @@ function App() {
         />
       )}
       {activeModal === "preview" && (
-        <ItemModal selectedCard={selectedCard} onClose={handleCloseModal}>
+        <ItemModal
+          currentWeather={currentWeather}
+          selectedCard={selectedCard}
+          onClose={handleCloseModal}
+        >
           {" "}
           <img src={selectedCard.link} alt={selectedCard.name} />{" "}
         </ItemModal>

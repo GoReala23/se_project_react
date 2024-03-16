@@ -26,3 +26,7 @@
   margin-top: 10px;
   position: absolute;
 }
+
+.card__weather-ifno {
+  display: flex;
+}
