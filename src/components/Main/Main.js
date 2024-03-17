@@ -11,13 +11,14 @@ const Main = ({
   clothingItems,
 }) => {
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
+  console.log(clothingItems);
 
   return (
     <main className="main">
       <div className="card__weather-today">
         <p>
-          Today the weather is: {currentWeather.temperature} {displayUnit} You
-          may want to wear:
+          Today is {currentWeather.temperature} {displayUnit} / You may want to
+          wear:
         </p>
       </div>
       <section className="card__section">

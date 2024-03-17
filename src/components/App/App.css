@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   display: flex;
+  font: "Cabinet Grotesk";
 }
 
 .App-logo {

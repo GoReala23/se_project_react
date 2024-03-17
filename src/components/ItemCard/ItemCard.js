@@ -24,12 +24,6 @@ const ItemCard = ({
         {showWeatherInfo && (
           <div className="card__weather-info">
             <p className="card__weather-type">Weather: {currentWeather.type}</p>
-            <p
-              className="
-            card__weather-temperature"
-            >
-              Temperature: {currentWeather.temperature} {displayUnit}
-            </p>
           </div>
         )}
       </div>

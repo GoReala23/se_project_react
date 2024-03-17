@@ -31,33 +31,40 @@ const ModalWithForm = ({
 
   return (
     <div className={`modal modal__type_${name}`}>
-      <div>
-        <div className="modal__content">
-          <button type="button" onClick={onClose}>
-            Close
-          </button>
-          <h3>{title}</h3>
-          <form onSubmit={handleSubmit}>
-            {children}
-            <input
-              type="text"
-              placeholder="Name"
-              value={formValues.name}
-              onChange={(e) =>
-                setFormValues({ ...formValues, name: e.target.value })
-              }
-            ></input>
-            <input
-              type="url"
-              placeholder="Image URL"
-              value={formValues.url}
-              onChange={(e) =>
-                setFormValues({ ...formValues, url: e.target.value })
-              }
-            ></input>
-            <div>
-              <label>
+      <div className="modal__content">
+        <button
+          className="modal__close"
+          type="button"
+          onClick={onClose}
+        ></button>
+        <h3>{title}</h3>
+        <form className="modal__form" onSubmit={handleSubmit}>
+          {children}
+          <label htmlFor="name">Name</label>
+          <input
+            className="modal__form-input"
+            type="text"
+            placeholder="Name"
+            value={formValues.name}
+            onChange={(e) =>
+              setFormValues({ ...formValues, name: e.target.value })
+            }
+          ></input>
+          <label htmlFor="url">Image URL</label>
+          <input
+            className="modal__form-input"
+            type="url"
+            placeholder="Image URL"
+            value={formValues.url}
+            onChange={(e) =>
+              setFormValues({ ...formValues, url: e.target.value })
+            }
+          ></input>
+          <div>
+            <div className="modal__form-radio">
+              <label className="modal__form-radio-label">
                 <input
+                  className="modal__form-radio modal__form-radio-opttions"
                   type="radio"
                   value="hot"
                   checked={formValues.weather === "hot"}
@@ -67,8 +74,9 @@ const ModalWithForm = ({
                 />
                 Hot
               </label>
-              <label>
+              <label className="modal__form-radio-label">
                 <input
+                  className="modal__form-radio modal__form-radio-opttions"
                   type="radio"
                   value="cold"
                   checked={formValues.weather === "cold"}
@@ -78,8 +86,9 @@ const ModalWithForm = ({
                 />
                 Cold
               </label>
-              <label>
+              <label className="modal__form-radio-label">
                 <input
+                  className="modal__form-radio modal__form-radio-opttions"
                   type="radio"
                   value="warm"
                   checked={formValues.weather === "warm"}
@@ -90,9 +99,9 @@ const ModalWithForm = ({
                 Warm
               </label>
             </div>
-            <button type="submit"> {buttonText} </button>
-          </form>
-        </div>
+          </div>
+          <button type="submit"> {buttonText} </button>
+        </form>
       </div>
     </div>
   );

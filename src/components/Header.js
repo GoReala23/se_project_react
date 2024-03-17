@@ -21,9 +21,9 @@ const Header = ({
     <header className="header">
       <div className=" header__section header__section-left">
         <img src={logo} alt="logo" className="header__logo" />
-        <p className="date-locatation">
+        <div className="header__date-location">
           {currentWeather.city} {currentWeather.temperature} {displayUnit}
-        </p>
+        </div>
       </div>
       <div className="header__section header__section-right">
         <div
@@ -38,18 +38,18 @@ const Header = ({
                 className="header__temp-switch-content-button header__temp-celsius"
                 onClick={() => handleUnitChange("Celsius")}
               >
-                Celsius
+                C°
               </button>
               <button
                 className="header__temp-switch-content-button header__temp-farenheit"
                 onClick={() => handleUnitChange("Farenheit")}
               >
-                Farenheit
+                F°
               </button>
             </div>
           )}
         </div>
-        <div className="header__button-add">
+        <div className="header__right-container">
           <button
             type="text"
             className="header__add-clothes"
@@ -57,8 +57,8 @@ const Header = ({
           >
             Add Clothes
           </button>
-          {/* <p>{user}</p> */}
-          <p>name</p>
+
+          <p className="header__user-name">name</p>
         </div>
         <div className="header__avatar">
           <img src={avatar} alt="avatar" className="header__avatar-img" />

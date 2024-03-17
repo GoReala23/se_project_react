@@ -1,3 +1,4 @@
+import "../ItemModal/ItemModal.css";
 const ItemModal = ({
   selectedCard,
   onClose,
@@ -8,18 +9,23 @@ const ItemModal = ({
     currentWeather.temperatureUnit === "imperial" ? " F°" : " C°";
   return (
     <div className={"modal"}>
-      <button type="button" onClick={onClose}>
-        Close
-      </button>
-      <div className="modal__content">
-        <img src={selectedCard.link} alt={selectedCard.name} />
-        <div>{selectedCard.name}</div>
-        <div>{selectedCard.weather}</div>
+      <div className="modal__image-container">
+        <button
+          className="modal__close"
+          type="button"
+          onClick={onClose}
+        ></button>
         <div>
+          {" "}
+          <img
+            className="modal__image"
+            src={selectedCard.link}
+            alt={selectedCard.name}
+          />
+        </div>
+        <div className="modal__content-weather">
+          <p>{selectedCard.name}</p>
           <p>Weather: {currentWeather.type}</p>
-          <p>
-            Temperature: {currentWeather.temperature} {displayUnit}
-          </p>
         </div>
       </div>
     </div>

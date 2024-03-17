@@ -8,7 +8,7 @@
   width: 1360px;
   min-height: 822px;
   gap: 0 20px;
-  background-color: darkred;
-  padding: 0 20px;
+  background-color: #f3f3f3;
+  /* padding: 0 20px; */
   position: relative;
 }

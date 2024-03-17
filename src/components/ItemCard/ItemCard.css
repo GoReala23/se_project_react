@@ -8,9 +8,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  justify-content: center;
-  padding: 20px;
-  background-color: darkred;
+  justify-content: space-between;
+
+  /* padding: 20px; */
 }
 
 .card__container {
@@ -29,4 +29,6 @@
 
 .card__weather-ifno {
   display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

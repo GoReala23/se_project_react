@@ -1,19 +1,74 @@
 .modal {
+  width: 1440px;
+  height: 822px;
+
   position: fixed;
   top: 0;
-  right: 0;
+  /* right: 0;
   left: 0;
-  bottom: 0;
+  bottom: 0; */
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-image: url("../images/Group\ 119.png");
+  object-fit: contain;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.modal__close:hover {
+  transform: scale(1.1);
+  transition: all 0.5s ease-in-out;
+}
+
 .modal__content {
   background-color: white;
-  max-width: 496px;
-  width: 100%;
+  position: relative;
+  max-width: 500px;
+  /* height: 610px; */
+  width: 80%;
   border-radius: 20px;
-  padding: 34px 36px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal__form-input {
+  border: none;
+  border-bottom: 1px solid #000;
+}
+
+.modal__form button[type="submit"] {
+  width: 124px;
+  height: 36px;
+}
+
+.modal__form-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modal__form-radio {
+  margin-right: 5px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }

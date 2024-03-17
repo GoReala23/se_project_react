@@ -38,7 +38,7 @@ const defaultClothingItems = [
     _id: 5,
     name: "T-Shirt",
     weather: "hot",
-    types: ["Sunny"], // Ideal for sunny weather
+    types: ["Sunny", "Cloudy"], // Ideal for sunny weather
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09",
   },
 ];
