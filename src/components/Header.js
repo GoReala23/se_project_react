@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import avatar from "../components/images/Avatar.png";
-import logo from "../components/images/Logo.png";
+import avatar from "../images/Avatar.png";
+import logo from "../images/Logo.png";
 import "../components/Header.css";
 
 const Header = ({

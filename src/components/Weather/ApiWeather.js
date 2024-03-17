@@ -1,5 +1,5 @@
-import { API_KEY, LOCATION } from "../utils/constants";
-import { weatherCodesLog } from "../utils/constants";
+import { API_KEY, LOCATION, weatherCodesLog } from "../../utils/constants";
+// import { weatherCodesLog } from "../utils/constants";
 
 const fetchWeatherData = async (temperatureUnit = "imperial") => {
   const { latitude, longitude } = LOCATION;
