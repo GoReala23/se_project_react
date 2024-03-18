@@ -8,7 +8,7 @@ import Main from "../Main/Main";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import { fetchWeatherData, extractWeatherInfo } from "../Weather/ApiWeather";
-import defaultClothingItems from "../Weather/WeatherImages/WeatherClothes/DefaultClothingItems";
+import DefaultClothingItems from "../../utils/constants";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState({
@@ -20,7 +20,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temperatureUnit, setTemperatureUnit] = useState("imperial");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState(DefaultClothingItems);
 
   useEffect(() => {
     async function getCurrentWeather() {

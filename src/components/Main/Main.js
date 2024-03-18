@@ -1,6 +1,6 @@
 import "./Main.css";
 
-import defaultClothingItems from "../Weather/WeatherImages/WeatherClothes/DefaultClothingItems";
+import defaultClothingItems from "../../utils/constants";
 import ItemCard from "../ItemCard/ItemCard";
 import ItemModal from "../ItemModal/ItemModal";
 
