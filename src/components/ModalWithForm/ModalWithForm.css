@@ -34,7 +34,7 @@
 .modal__content {
   background-color: white;
   position: relative;
-  max-width: 500px;
+  max-width: 496px;
   /* height: 610px; */
   width: 80%;
   border-radius: 20px;
@@ -49,12 +49,19 @@
   gap: 20px;
 }
 
+.modal__form-group {
+  display: flex;
+  flex-direction: column;
+}
+
 .modal__form-input {
   border: none;
   border-bottom: 1px solid #000;
+  width: 440px;
+  height: 52px;
 }
 
-.modal__form button[type="submit"] {
+.modal__form-submit {
   width: 124px;
   height: 36px;
 }

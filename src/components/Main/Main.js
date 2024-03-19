@@ -11,7 +11,6 @@ const Main = ({
   clothingItems,
 }) => {
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
-  console.log(clothingItems);
 
   return (
     <main className="main">

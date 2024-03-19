@@ -16,7 +16,7 @@ export const weatherCodesLog = (code) => {
   return "Unknown";
 };
 
-export const WeatherImages = [
+export const weatherImages = [
   {
     type: "Cloudy",
     day: true,
@@ -79,7 +79,7 @@ export const WeatherImages = [
   },
 ];
 
-export const DefaultClothingItems = [
+export const defaultClothingItems = [
   {
     _id: 0,
     name: "Cap",
@@ -124,4 +124,4 @@ export const DefaultClothingItems = [
   },
 ];
 
-export default DefaultClothingItems;
+export default defaultClothingItems;

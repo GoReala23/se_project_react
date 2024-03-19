@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import avatar from "../images/Avatar.png";
-import logo from "../images/Logo.png";
-import "../components/Header.css";
+import avatar from "../../images/Avatar.png";
+import logo from "../../images/Logo.png";
+import "./Header.css";
 
 const Header = ({
   currentWeather,

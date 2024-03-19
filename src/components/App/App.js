@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Header from "../Header";
+import Header from "../Header/Header";
 import WeatherBar from "../Weather/WeatherBar";
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
 
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
-import { fetchWeatherData, extractWeatherInfo } from "../Weather/ApiWeather";
-import DefaultClothingItems from "../../utils/constants";
+import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
+import defaultClothingItems from "../../utils/constants";
+import AddItemForm from "../ModalWithForm/AddItemForm";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState({
@@ -20,7 +20,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temperatureUnit, setTemperatureUnit] = useState("imperial");
-  const [clothingItems, setClothingItems] = useState(DefaultClothingItems);
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
   useEffect(() => {
     async function getCurrentWeather() {
@@ -76,10 +76,11 @@ function App() {
       />
       <Footer />
       {activeModal === "create" && (
-        <ModalWithForm
+        <AddItemForm
           title="New Garments"
           onClose={handleCloseModal}
           onAddNewItem={handleAddNewItem}
+          buttonText={"Add Garments"}
         />
       )}
       {activeModal === "preview" && (

@@ -1,5 +1,11 @@
-import { API_KEY, LOCATION, weatherCodesLog } from "../../utils/constants";
-// import { weatherCodesLog } from "../utils/constants";
+import { API_KEY, LOCATION, weatherCodesLog } from "./constants";
+
+const processServerResponse = async (response) => {
+  if (!response.ok) {
+    throw new Error("Weather data fetch failed");
+  }
+  return await response.json();
+};
 
 const fetchWeatherData = async (temperatureUnit = "imperial") => {
   const { latitude, longitude } = LOCATION;
@@ -8,10 +14,7 @@ const fetchWeatherData = async (temperatureUnit = "imperial") => {
 
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error("Weather data fetch failed");
-    }
-    const data = await response.json();
+    const data = await processServerResponse(response);
     return data;
   } catch (error) {
     console.error("Error fetching weather data:", error);
