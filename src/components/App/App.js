@@ -8,7 +8,7 @@ import Main from "../Main/Main";
 import ItemModal from "../ItemModal/ItemModal";
 import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
 import defaultClothingItems from "../../utils/constants";
-import AddItemForm from "../ModalWithForm/AddItemForm";
+import AddItemForm from "../AddItemModal/AddItemForm";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState({

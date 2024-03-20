@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ModalWithForm from "./ModalWithForm";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const AddItemForm = ({ onClose, onAddNewItem }) => {
   const [formValues, setFormValues] = useState({
@@ -50,6 +50,7 @@ const AddItemForm = ({ onClose, onAddNewItem }) => {
         <input
           className="modal__form-input"
           type="url"
+          name="weather"
           placeholder="Image URL"
           value={formValues.url}
           onChange={(e) =>
@@ -62,8 +63,9 @@ const AddItemForm = ({ onClose, onAddNewItem }) => {
         <div className="modal__form-radio">
           <label className="modal__form-radio-label">
             <input
-              className="modal__form-radio modal__form-radio-opttions"
+              className="modal__form-radio modal__form-radio-options"
               type="radio"
+              name="weather"
               value="hot"
               checked={formValues.weather === "hot"}
               onChange={(e) =>
@@ -74,8 +76,9 @@ const AddItemForm = ({ onClose, onAddNewItem }) => {
           </label>
           <label className="modal__form-radio-label">
             <input
-              className="modal__form-radio modal__form-radio-opttions"
+              className="modal__form-radio modal__form-radio-options"
               type="radio"
+              name="weather"
               value="cold"
               checked={formValues.weather === "cold"}
               onChange={(e) =>
@@ -86,8 +89,9 @@ const AddItemForm = ({ onClose, onAddNewItem }) => {
           </label>
           <label className="modal__form-radio-label">
             <input
-              className="modal__form-radio modal__form-radio-opttions"
+              className="modal__form-radio modal__form-radio-options"
               type="radio"
+              name="weather"
               value="warm"
               checked={formValues.weather === "warm"}
               onChange={(e) =>
