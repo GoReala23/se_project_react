@@ -1,109 +1,56 @@
-import React, { useState } from "react";
+// AddItemModal.js
+import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import AddItemForm from "./AddItemForm"; // Assuming AddItemForm is the form component
 
-const AddItemForm = ({ onClose, onAddNewItem }) => {
-  const [formValues, setFormValues] = useState({
-    name: "",
-    url: "",
-    weather: "hot",
-    types: [],
-  });
+const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
+  // Declare state for each input field
+  const [name, setName] = useState("");
+  const [url, setUrl] = useState("");
+  const [weather, setWeather] = useState("hot");
+  const [types, setTypes] = useState([]);
 
-  const handleSubmit = () => {
-    const newItem = {
-      _id: Date.now(),
-      name: formValues.name,
-      link: formValues.url,
-      weather: formValues.weather,
-      types: [formValues.types],
-    };
+  // Reset the input field state to empty strings when the modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      setName("");
+      setUrl("");
+      setWeather("hot");
+      setTypes([]);
+    }
+  }, [isOpen]);
 
-    onAddNewItem(newItem);
-  };
+  // Create onChange handlers corresponding to each state variable
+  const handleNameChange = (e) => setName(e.target.value);
+  const handleUrlChange = (e) => setUrl(e.target.value);
+  const handleWeatherChange = (e) => setWeather(e.target.value);
+  // Assuming types is an array of selected types, adjust as necessary
+
+  // Submit handler
+  function handleSubmit(e) {
+    e.preventDefault();
+    onAddItem({ name, url, weather, types });
+    onCloseModal();
+  }
 
   return (
     <ModalWithForm
-      title="New Garments"
-      onClose={onClose}
-      name="create"
-      buttonText="Add Garments"
+      isOpen={isOpen}
+      onClose={onCloseModal}
       onSubmit={handleSubmit}
+      title="Add New Item"
+      buttonText="Add Item"
     >
-      <div>
-        {" "}
-        <label className="modal__form-group" htmlFor="name">
-          Name
-        </label>
-        <input
-          className="modal__form-input"
-          type="text"
-          placeholder="Name"
-          value={formValues.name}
-          onChange={(e) =>
-            setFormValues({ ...formValues, name: e.target.value })
-          }
-        />
-      </div>
-      <div className="modal__form-group">
-        {" "}
-        <label htmlFor="url">Image</label>
-        <input
-          className="modal__form-input"
-          type="url"
-          name="weather"
-          placeholder="Image URL"
-          value={formValues.url}
-          onChange={(e) =>
-            setFormValues({ ...formValues, url: e.target.value })
-          }
-        />
-      </div>
-      <div>
-        <p> Select the weather type: </p>
-        <div className="modal__form-radio">
-          <label className="modal__form-radio-label">
-            <input
-              className="modal__form-radio modal__form-radio-options"
-              type="radio"
-              name="weather"
-              value="hot"
-              checked={formValues.weather === "hot"}
-              onChange={(e) =>
-                setFormValues({ ...formValues, weather: e.target.value })
-              }
-            />
-            Hot
-          </label>
-          <label className="modal__form-radio-label">
-            <input
-              className="modal__form-radio modal__form-radio-options"
-              type="radio"
-              name="weather"
-              value="cold"
-              checked={formValues.weather === "cold"}
-              onChange={(e) =>
-                setFormValues({ ...formValues, weather: e.target.value })
-              }
-            />
-            Cold
-          </label>
-          <label className="modal__form-radio-label">
-            <input
-              className="modal__form-radio modal__form-radio-options"
-              type="radio"
-              name="weather"
-              value="warm"
-              checked={formValues.weather === "warm"}
-              onChange={(e) =>
-                setFormValues({ ...formValues, weather: e.target.value })
-              }
-            />
-            Warm
-          </label>
-        </div>
-      </div>
+      {/* Form fields go here, utilizing state and handlers */}
+      <AddItemForm
+        formValues={{ name, url, weather, types }}
+        onNameChange={handleNameChange}
+        onUrlChange={handleUrlChange}
+        onWeatherChange={handleWeatherChange}
+        // Add more props as needed for handling types and other fields
+      />
     </ModalWithForm>
   );
 };
 
-export default AddItemForm;
+export default AddItemModal;

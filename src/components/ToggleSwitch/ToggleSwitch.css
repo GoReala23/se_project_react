@@ -1,0 +1,66 @@
+/* Filename: src/components/ToggleSwitch/ToggleSwitch.css */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch__box {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch__slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.switch__slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .switch__slider {
+  background-color: #2196f3;
+}
+
+input:checked + .switch__slider:before {
+  transform: translateX(26px);
+}
+
+.switch__label {
+  position: absolute;
+  top: -25px;
+  color: #fff;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.switch__label.active {
+  color: #2196f3;
+}
+
+.switch__label:first-child {
+  left: 0;
+}
+
+.switch__label:last-child {
+  right: 0;
+}

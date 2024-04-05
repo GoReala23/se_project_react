@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "../Header/Header";
 import WeatherBar from "../Weather/WeatherBar";
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
 
 import ItemModal from "../ItemModal/ItemModal";
+import { CurrentTemperatureUnitProvider } from "../../context/CurrentTemperatureUnitContext";
 import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
 import defaultClothingItems from "../../utils/constants";
-import AddItemForm from "../AddItemModal/AddItemForm";
+import "./App.css";
+import Profile from "../Profile/Profile";
+
+import AddItemModal from "../AddItemModal/AddItemModal";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState({
     city: "",
-    temperature: "",
+    temperature: { F: "", C: "" },
     type: "",
     day: true,
   });
+
+  const username = "name";
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temperatureUnit, setTemperatureUnit] = useState("imperial");
@@ -30,17 +36,19 @@ function App() {
         setCurrentWeather(weatherData);
       }
     }
-
     getCurrentWeather();
   }, [temperatureUnit]);
 
-  const handleUnitChange = (unit) => {
-    setTemperatureUnit(unit);
+  const handleUnitChange = () => {
+    setTemperatureUnit((prevUnit) =>
+      prevUnit === "imperial" ? "metric" : "imperial"
+    );
   };
 
   const handleCreateModal = () => {
     setActiveModal("create");
   };
+
   const handleCloseModal = () => {
     setActiveModal("");
   };
@@ -56,44 +64,57 @@ function App() {
   };
 
   return (
-    <div>
-      <Header
-        currentWeather={currentWeather}
-        onCreateModal={handleCreateModal}
-        onUnitChange={setTemperatureUnit}
-        temperatureUnit={temperatureUnit}
-      />
-      <WeatherBar
-        currentWeather={currentWeather}
-        temperatureUnit={temperatureUnit}
-      />
-      <Main
-        currentWeather={currentWeather}
-        onSelectCard={handleSelectedCard}
-        onUnitChange={setTemperatureUnit}
-        temperatureUnit={temperatureUnit}
-        clothingItems={clothingItems}
-      />
-      <Footer />
-      {activeModal === "create" && (
-        <AddItemForm
-          title="New Garments"
-          onClose={handleCloseModal}
-          onAddNewItem={handleAddNewItem}
-          buttonText={"Add Garments"}
-        />
-      )}
-      {activeModal === "preview" && (
-        <ItemModal
-          currentWeather={currentWeather}
-          selectedCard={selectedCard}
-          onClose={handleCloseModal}
-        >
-          {" "}
-          <img src={selectedCard.link} alt={selectedCard.name} />{" "}
-        </ItemModal>
-      )}
-    </div>
+    <Router>
+      <CurrentTemperatureUnitProvider
+        value={{ temperatureUnit, setTemperatureUnit, currentWeather }}
+      >
+        <div className="App">
+          <Header
+            currentWeather={currentWeather}
+            onCreateModal={handleCreateModal}
+            onUnitChange={handleUnitChange}
+            temperatureUnit={temperatureUnit}
+            name={username}
+          />
+          <WeatherBar
+            currentWeather={currentWeather}
+            temperatureUnit={temperatureUnit}
+          />
+
+          <Switch>
+            <Route path="/" exact>
+              <Main
+                currentWeather={currentWeather}
+                onSelectCard={handleSelectedCard}
+                onUnitChange={handleUnitChange}
+                temperatureUnit={temperatureUnit}
+                clothingItems={clothingItems}
+              />
+            </Route>
+            <Route path="/profile" eaxct>
+              <Profile currentWeather={currentWeather} username={username} />
+            </Route>
+            <Route path="/add-item" exact>
+              {activeModal === "create" && (
+                <AddItemModal
+                  onClose={handleCloseModal}
+                  onAddNewItem={handleAddNewItem}
+                />
+              )}
+            </Route>
+            <Route path="/preview-item" exact>
+              {activeModal === "preview" && (
+                <ItemModal
+                  selectedCard={selectedCard}
+                  onClose={handleCloseModal}
+                />
+              )}
+            </Route>
+          </Switch>
+          <Footer />
+        </div>
+      </CurrentTemperatureUnitProvider>
+    </Router>
   );
 }
 

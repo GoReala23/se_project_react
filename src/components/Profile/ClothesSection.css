@@ -1,0 +1,11 @@
+.clothes__section {
+  width: 1015px;
+  height: 676px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.clothes__section .card__container {
+  width: 323px;
+  height: 326px;
+}

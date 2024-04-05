@@ -26,15 +26,21 @@ const extractWeatherInfo = (data) => {
   if (!data)
     return {
       city: "",
-      temperature: "",
+      temperature: { F: "", C: "" },
       type: "",
       day: true,
     };
+  const temperatureF = Math.round(data.main.temp);
+  const temperatureC = Math.round(((temperatureF - 32) * 5) / 9);
   const city = data.name;
-  const temperature = Math.round(data.main.temp);
   const weatherCodes = data.weather[0].id;
   const type = weatherCodesLog(weatherCodes);
   const isDay = data.weather[0].icon.includes("d");
-  return { city, temperature, type, day: isDay };
+  return {
+    city,
+    temperature: { F: `${temperatureF}°F`, C: `${temperatureC}°C` },
+    type,
+    day: isDay,
+  };
 };
 export { fetchWeatherData, extractWeatherInfo };
