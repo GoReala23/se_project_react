@@ -31,7 +31,9 @@ const Header = ({ currentWeather, onCreateModal, name }) => {
         <div className="header__section header__section-right">
           <ToggleSwitch checked={isChecked} onChange={handleUnitChange} />
           <div className="header__right-container">
-            <Link to="/add-item">Add Clothes</Link>
+            <button onClick={onCreateModal} className="header_add-clothes">
+              Add Clothes
+            </button>
 
             <p className="header__user-name">{name}</p>
           </div>

@@ -4,7 +4,7 @@ import "./ToggleSwitch.css";
 
 const ToggleSwitch = () => {
   const { temperatureUnit, handleUnitChange } = useCurrentTemperatureUnit();
-  const isChecked = temperatureUnit === "imperial";
+  const isChecked = temperatureUnit === "metric";
 
   return (
     <label className="switch">
@@ -15,8 +15,20 @@ const ToggleSwitch = () => {
         checked={isChecked}
       />
       <div className="switch__slider">
-        <p className={`switch__label ${isChecked ? "active" : ""}`}>F</p>
-        <p className={`switch__label ${!isChecked ? "active" : ""}`}>C</p>
+        <p
+          className={`switch__label switch__label__fahrenheit ${
+            isChecked ? "switch__label--inactive" : ""
+          }`}
+        >
+          F
+        </p>
+        <p
+          className={`switch__label switch__label__celsius ${
+            !isChecked ? "switch__label--inactive" : ""
+          }`}
+        >
+          C
+        </p>
       </div>
     </label>
   );

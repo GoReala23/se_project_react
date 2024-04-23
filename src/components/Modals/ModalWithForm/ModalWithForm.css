@@ -1,7 +1,6 @@
 .modal {
   width: 1440px;
   height: 822px;
-
   position: fixed;
   top: 0;
   right: 0;
@@ -21,7 +20,7 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  background-image: url("../../images/Group\ 119.png");
+  background-image: url("../../../images/Group\ 119.png");
   object-fit: contain;
   background-repeat: no-repeat;
   background-size: contain;
@@ -36,30 +35,42 @@
   background-color: white;
   position: relative;
   max-width: 496px;
-  /* height: 610px; */
-  width: 80%;
+  height: 436px;
+  gap: 10px;
   border-radius: 20px;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  text-align: justify;
+}
+
+.modal__title {
+  width: auto;
+  height: 20px;
 }
 
 .modal__form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.modal__form-group {
-  display: flex;
-  flex-direction: column;
+  padding-top: 10px;
 }
 
 .modal__form-input {
   border: none;
   border-bottom: 1px solid #000;
   width: 440px;
-  height: 52px;
+
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__form-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
 }
 
 .modal__form-submit {
@@ -67,15 +78,7 @@
   height: 36px;
 }
 
-.modal__form-radio-label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.modal__form-radio {
-  margin-right: 5px;
-
+.modal__form-radios {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

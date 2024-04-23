@@ -1,11 +1,25 @@
-.clothes__section {
+.clothes__section-container {
   width: 1015px;
   height: 676px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  padding-left: 0;
 }
 
-.clothes__section .card__container {
+.clothes__section-container .card__container {
   width: 323px;
   height: 326px;
+}
+
+.clothes__section-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.clothes__section-add {
+  width: 85px;
+  height: 25px;
+  border: none;
 }

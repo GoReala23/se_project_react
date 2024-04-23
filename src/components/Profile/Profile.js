@@ -2,11 +2,15 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import ClothesSection from "./ClothesSection";
 import "./Profile.css";
-const Profile = ({ currentWeather, username }) => {
+const Profile = ({ currentWeather, username, onSelectCard, onCreateModal }) => {
   return (
     <div className="profile">
       <Sidebar username={username} />
-      <ClothesSection currentWeather={currentWeather} />
+      <ClothesSection
+        currentWeather={currentWeather}
+        onSelectCard={onSelectCard}
+        onCreateModal={onCreateModal}
+      />
     </div>
   );
 };

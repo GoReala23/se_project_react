@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "../Header/Header";
-import WeatherBar from "../Weather/WeatherBar";
+
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
-
-import ItemModal from "../ItemModal/ItemModal";
+import ItemModal from "../Modals/ItemModal/ItemModal";
 import { CurrentTemperatureUnitProvider } from "../../context/CurrentTemperatureUnitContext";
 import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
-import defaultClothingItems from "../../utils/constants";
+
 import "./App.css";
 import Profile from "../Profile/Profile";
-
-import AddItemModal from "../AddItemModal/AddItemModal";
-
+import AddItemModal from "../Modals/AddItemModal/AddItemModal";
+import { fetchItems } from "../../utils/Api";
+import { deleteItem } from "../../utils/Api";
+import DeleteConfirmationModal from "../Modals/ConfirmationModal/ConfirmationModal";
 function App() {
   const [currentWeather, setCurrentWeather] = useState({
     city: "",
@@ -26,7 +26,10 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temperatureUnit, setTemperatureUnit] = useState("imperial");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
+  const [cardToDelete, setCardToDelete] = useState(null);
 
   useEffect(() => {
     async function getCurrentWeather() {
@@ -39,18 +42,60 @@ function App() {
     getCurrentWeather();
   }, [temperatureUnit]);
 
+  useEffect(() => {
+    console.log("Active Modal State: ", activeModal);
+  }, [activeModal]);
+
+  useEffect(() => {
+    const loadClothingItems = async () => {
+      try {
+        const items = await fetchItems();
+        setClothingItems(items);
+      } catch (error) {
+        console.error("Failed to fetch items:", error);
+      }
+    };
+
+    loadClothingItems();
+  }, []);
+  const handleConfirmDelete = async () => {
+    if (cardToDelete) {
+      await handleDeleteItem(cardToDelete._id);
+      setIsDeleteConfirmationOpen(false);
+      setCardToDelete(null);
+    }
+  };
   const handleUnitChange = () => {
     setTemperatureUnit((prevUnit) =>
       prevUnit === "imperial" ? "metric" : "imperial"
     );
   };
 
+  const openConfirmationModal = (card) => {
+    setCardToDelete(card);
+    setIsDeleteConfirmationOpen(true);
+  };
+
   const handleCreateModal = () => {
     setActiveModal("create");
+    console.log("click");
   };
 
   const handleCloseModal = () => {
     setActiveModal("");
+  };
+
+  const handleDeleteItem = async (_id) => {
+    const previousItems = [...clothingItems];
+    setClothingItems(clothingItems.filter((item) => item._id !== _id));
+
+    try {
+      await deleteItem(_id);
+    } catch (error) {
+      console.error("Failed to delete the item:", error);
+      setClothingItems(previousItems);
+      alert("Failed to delete the item. It might have already been deleted.");
+    }
   };
 
   const handleSelectedCard = (card) => {
@@ -59,7 +104,15 @@ function App() {
   };
 
   const handleAddNewItem = (newItem) => {
-    setClothingItems([...clothingItems, newItem]);
+    if (!newItem.name || !newItem.imageUrl || !newItem.weather) {
+      console.error("Invalid item structure:", newItem);
+      return;
+    }
+    const newItemWithId = {
+      ...newItem,
+      _id: Date.now(),
+    };
+    setClothingItems([newItemWithId, ...clothingItems]);
     handleCloseModal();
   };
 
@@ -76,10 +129,6 @@ function App() {
             temperatureUnit={temperatureUnit}
             name={username}
           />
-          <WeatherBar
-            currentWeather={currentWeather}
-            temperatureUnit={temperatureUnit}
-          />
 
           <Switch>
             <Route path="/" exact>
@@ -89,29 +138,44 @@ function App() {
                 onUnitChange={handleUnitChange}
                 temperatureUnit={temperatureUnit}
                 clothingItems={clothingItems}
+                onDeleteItem={openConfirmationModal}
               />
             </Route>
-            <Route path="/profile" eaxct>
-              <Profile currentWeather={currentWeather} username={username} />
-            </Route>
-            <Route path="/add-item" exact>
-              {activeModal === "create" && (
-                <AddItemModal
-                  onClose={handleCloseModal}
-                  onAddNewItem={handleAddNewItem}
-                />
-              )}
-            </Route>
-            <Route path="/preview-item" exact>
-              {activeModal === "preview" && (
-                <ItemModal
-                  selectedCard={selectedCard}
-                  onClose={handleCloseModal}
-                />
-              )}
+            <Route path="/profile" exact>
+              <Profile
+                currentWeather={currentWeather}
+                username={username}
+                onSelectCard={handleSelectedCard}
+                onCreateModal={handleCreateModal}
+              />
             </Route>
           </Switch>
           <Footer />
+
+          {activeModal === "create" && (
+            <AddItemModal
+              isOpen={activeModal === "create"}
+              onCloseModal={handleCloseModal}
+              onAddItem={handleAddNewItem}
+            />
+          )}
+          {activeModal === "preview" && (
+            <ItemModal
+              isOpen={activeModal === "preview"}
+              selectedCard={selectedCard}
+              onDelete={openConfirmationModal}
+              onClose={handleCloseModal}
+              temperatureUnit={temperatureUnit}
+              currentWeather={currentWeather}
+            />
+          )}
+
+          <DeleteConfirmationModal
+            isOpen={isDeleteConfirmationOpen}
+            onClose={handleCloseModal}
+            onConfirm={handleConfirmDelete}
+            item={cardToDelete}
+          />
         </div>
       </CurrentTemperatureUnitProvider>
     </Router>

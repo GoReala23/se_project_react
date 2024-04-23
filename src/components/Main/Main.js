@@ -1,16 +1,16 @@
 import "./Main.css";
-
-import defaultClothingItems from "../../utils/constants";
+import React, { useState } from "react";
 import ItemCard from "../ItemCard/ItemCard";
-import ItemModal from "../ItemModal/ItemModal";
+import WeatherBar from "../Weather/WeatherBar";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 
 const Main = ({
   currentWeather,
   onSelectCard,
-
+  onDeleteItem,
   clothingItems,
 }) => {
+  const [selectedItemId, setSelectedItemId] = useState(null);
   const { temperatureUnit } = useCurrentTemperatureUnit();
 
   const displayTemperature =
@@ -18,22 +18,37 @@ const Main = ({
       ? currentWeather.temperature.F
       : currentWeather.temperature.C;
 
+  const handleSelectCard = (item) => {
+    onSelectCard(item);
+    setSelectedItemId(item._id);
+  };
+
   return (
     <main className="main">
+      <WeatherBar
+        currentWeather={currentWeather}
+        temperatureUnit={temperatureUnit}
+      />
       <div className="card__weather-today">
-        <p>Today is {displayTemperature}/ You may want to wear:</p>
+        <p>
+          Today is {displayTemperature} {currentWeather.type}/ You may want to
+          wear:
+        </p>
       </div>
       <section className="card__section">
-        {clothingItems.map((item, index) => (
-          <ItemCard
-            key={item._id}
-            item={item}
-            currentWeather={currentWeather}
-            showWeatherInfo={index === 0}
-            onSelectCard={onSelectCard}
-            // temperatureUnit={temperatureUnit}
-          />
-        ))}
+        {
+          (console.log(clothingItems),
+          clothingItems.map((item, index) => (
+            <ItemCard
+              key={item._id}
+              item={item}
+              currentWeather={currentWeather}
+              showWeatherInfo={selectedItemId === item._id}
+              onSelectCard={() => handleSelectCard(item)}
+              onDeleteItem={onDeleteItem}
+            />
+          )))
+        }
       </section>
     </main>
   );

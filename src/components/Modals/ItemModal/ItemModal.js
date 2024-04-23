@@ -1,12 +1,17 @@
-import "../ItemModal/ItemModal.css";
+import "./ItemModal.css";
 const ItemModal = ({
   selectedCard,
   onClose,
-  currentWeather,
   temperatureUnit,
+  currentWeather,
+  onDelete,
 }) => {
-  const displayUnit =
-    currentWeather.temperatureUnit === "imperial" ? " F°" : " C°";
+  const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
+
+  const handleDelete = () => {
+    onDelete(selectedCard._id);
+    onClose();
+  };
   return (
     <div className={"modal"}>
       <div className="modal__image-container">
@@ -19,13 +24,19 @@ const ItemModal = ({
           {" "}
           <img
             className="modal__image"
-            src={selectedCard.link}
+            src={selectedCard.imageUrl}
             alt={selectedCard.name}
           />
         </div>
         <div className="modal__content-weather">
           <p>{selectedCard.name}</p>
           <p>Weather: {currentWeather.type}</p>
+          <div>
+            <button className="modal__delete" onClick={handleDelete}>
+              {" "}
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>
