@@ -47,16 +47,15 @@ function App() {
   }, [activeModal]);
 
   useEffect(() => {
-    const loadClothingItems = async () => {
-      try {
-        const items = await fetchItems();
-        setClothingItems(items);
-      } catch (error) {
-        console.error("Failed to fetch items:", error);
+    const loadItems = async () => {
+      const fetchedItems = await fetchItems();
+      if (fetchedItems) {
+        console.log("Items fetched:", fetchedItems);
+        setClothingItems(fetchedItems);
       }
     };
 
-    loadClothingItems();
+    loadItems();
   }, []);
   const handleConfirmDelete = async () => {
     if (cardToDelete) {
