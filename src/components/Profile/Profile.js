@@ -1,11 +1,11 @@
 import React from "react";
-import Sidebar from "./Sidebar";
+import SideBar from "./SideBar";
 import ClothesSection from "./ClothesSection";
 import "./Profile.css";
 const Profile = ({ currentWeather, username, onSelectCard, onCreateModal }) => {
   return (
     <div className="profile">
-      <Sidebar username={username} />
+      <SideBar username={username} />
       <ClothesSection
         currentWeather={currentWeather}
         onSelectCard={onSelectCard}
