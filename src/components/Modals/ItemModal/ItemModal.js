@@ -7,9 +7,9 @@ const ItemModal = ({
   onDelete,
 }) => {
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
-
+  console.log(selectedCard);
   const handleDelete = () => {
-    onDelete(selectedCard._id);
+    onDelete(selectedCard);
     onClose();
   };
   return (

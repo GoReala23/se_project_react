@@ -7,7 +7,7 @@ export const fetchItems = async () => {
       throw new Error("Failed to fetch items");
     }
     const data = await response.json();
-    console.log("Fetched items:", data);
+
     return data;
   } catch (error) {
     console.error("Error fetching items:", error);
@@ -26,7 +26,9 @@ export const addItem = async (item) => {
     if (!response.ok) {
       throw new Error("Failed to add item");
     }
-    return await response.json();
+    const addedItem = await response.json();
+    console.log("Added item:", addedItem);
+    return addedItem;
   } catch (error) {
     console.error("Error adding item:", error);
   }

@@ -11,7 +11,6 @@ const ModalWithForm = ({
 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Data received from form: ", e.target);
     onSubmit(e);
   };
 

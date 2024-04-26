@@ -11,6 +11,7 @@ import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
 import "./App.css";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../Modals/AddItemModal/AddItemModal";
+import { addItem } from "../../utils/Api";
 import { fetchItems } from "../../utils/Api";
 import { deleteItem } from "../../utils/Api";
 import DeleteConfirmationModal from "../Modals/ConfirmationModal/ConfirmationModal";
@@ -103,16 +104,19 @@ function App() {
   };
 
   const handleAddNewItem = (newItem) => {
-    if (!newItem.name || !newItem.imageUrl || !newItem.weather) {
-      console.error("Invalid item structure:", newItem);
-      return;
-    }
-    const newItemWithId = {
-      ...newItem,
-      _id: Date.now(),
-    };
-    setClothingItems([newItemWithId, ...clothingItems]);
-    handleCloseModal();
+    addItem(newItem)
+      .then((addedItem) => {
+        if (addedItem) {
+          console.log("Item successfully added:", addedItem);
+          setClothingItems([addedItem, ...clothingItems]);
+          handleCloseModal();
+        } else {
+          console.error("Failed to add the item.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error in adding item:", error);
+      });
   };
 
   return (
@@ -146,6 +150,7 @@ function App() {
                 username={username}
                 onSelectCard={handleSelectedCard}
                 onCreateModal={handleCreateModal}
+                clothingItems={clothingItems}
               />
             </Route>
           </Switch>

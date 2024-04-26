@@ -12,7 +12,7 @@ const Main = ({
 }) => {
   const [selectedItemId, setSelectedItemId] = useState(null);
   const { temperatureUnit } = useCurrentTemperatureUnit();
-
+  console.log(clothingItems);
   const displayTemperature =
     temperatureUnit === "imperial"
       ? currentWeather.temperature.F

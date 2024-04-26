@@ -1,27 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { defaultClothingItems } from "../../utils/constants";
+
 import ItemCard from "../ItemCard/ItemCard";
 import { fetchItems } from "../../utils/Api";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 import "./ClothesSection.css";
 
-const ClothesSection = ({ currentWeather, onSelectCard, onCreateModal }) => {
-  const [clothingItems, setClothingItems] = useState([]);
+const ClothesSection = ({
+  currentWeather,
+  onSelectCard,
+  onCreateModal,
+  clothingItems,
+}) => {
+  const [clothes, setClothes] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
   useEffect(() => {
-    const loadItems = async () => {
-      const items = await fetchItems();
-      if (items) {
-        setClothingItems(items);
-      }
-    };
+    if (clothingItems) {
+      console.log("clothing items in ClothesSection:", clothingItems);
+      console.log(clothingItems);
+      setClothes(clothingItems);
+    }
+  }, [clothingItems]);
 
-    loadItems();
-  }, []);
+  console.log("Current Weather Type: ", currentWeather?.type);
+  console.log(
+    "Clothing Items: ",
+    clothingItems.map((item) => ({ name: item.name, types: item.types }))
+  );
 
-  const filteredClothingItems = clothingItems.filter((item) =>
-    item.types.includes(currentWeather.type)
+  const filteredClothingItems = clothingItems.filter(
+    (item) =>
+      currentWeather?.type &&
+      item.types
+        ?.map((type) => type.toLowerCase())
+        .includes(currentWeather.type.toLowerCase())
   );
 
   const handleSelectCard = (item) => {
