@@ -1,5 +1,5 @@
 import React from "react";
-import SideBar from "../Sidebar/SideBar";
+import SideBar from "../SideBar/SideBar";
 import ClothesSection from "./ClothesSection";
 import "./Profile.css";
 const Profile = ({
