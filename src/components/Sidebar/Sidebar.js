@@ -2,7 +2,7 @@ import React from "react";
 import "./SideBar.css";
 import avatar from "../../images/Avatar.png";
 
-const Sidebar = ({ username }) => {
+const SideBar = ({ username }) => {
   return (
     <aside className="sidebar">
       <div className="sidebar__profile">
@@ -13,4 +13,4 @@ const Sidebar = ({ username }) => {
   );
 };
 
-export default Sidebar;
+export default SideBar;

@@ -103,22 +103,20 @@ function App() {
     setSelectedCard(card);
   };
 
-  const handleAddNewItem = (newItem) => {
-    addItem(newItem)
-      .then((addedItem) => {
-        if (addedItem) {
-          console.log("Item successfully added:", addedItem);
-          setClothingItems([addedItem, ...clothingItems]);
-          handleCloseModal();
-        } else {
-          console.error("Failed to add the item.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error in adding item:", error);
-      });
+  const handleAddNewItem = async (newItem) => {
+    try {
+      const addedItem = await addItem(newItem);
+      if (addedItem) {
+        console.log("Item successfully added:", addedItem);
+        setClothingItems([addedItem, ...clothingItems]);
+        handleCloseModal();
+      } else {
+        console.error("Failed to add the item.");
+      }
+    } catch (error) {
+      console.error("Error in adding item:", error);
+    }
   };
-
   return (
     <Router>
       <CurrentTemperatureUnitProvider

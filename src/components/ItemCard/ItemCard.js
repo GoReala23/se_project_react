@@ -10,12 +10,12 @@ const ItemCard = ({
   onDeleteItem,
 }) => {
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
-  const clothesForWeather =
-    currentWeather?.type && item.types?.includes(currentWeather.type);
+  // const clothesForWeather =
+  //   currentWeather?.type && item.types?.includes(currentWeather.type);
 
-  if (!clothesForWeather) {
-    return null;
-  }
+  // if (!clothesForWeather) {
+  //   return null;
+  // }
 
   return (
     <div className="card__container">

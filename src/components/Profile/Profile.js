@@ -9,6 +9,8 @@ const Profile = ({
   onCreateModal,
   clothingItems,
 }) => {
+  console.log("Profile clothingItems:", clothingItems);
+
   return (
     <div className="profile">
       <SideBar username={username} />
