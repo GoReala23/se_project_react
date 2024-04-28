@@ -1,7 +1,7 @@
 import "./Main.css";
 import React, { useState } from "react";
 import ItemCard from "../ItemCard/ItemCard";
-import WeatherBar from "../Weather/WaetherCard";
+import WeatherCard from "../WeatherCard/WaetherCard";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 
 const Main = ({
@@ -25,7 +25,7 @@ const Main = ({
 
   return (
     <main className="main">
-      <WeatherBar
+      <WeatherCard
         currentWeather={currentWeather}
         temperatureUnit={temperatureUnit}
       />

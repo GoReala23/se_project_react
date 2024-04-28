@@ -3,7 +3,7 @@ import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitC
 import "./WeatherCard.css";
 import { weatherImages } from "../../utils/constants";
 
-const WeatherBar = ({ currentWeather }) => {
+const WeatherCard = ({ currentWeather }) => {
   const { temperatureUnit } = useCurrentTemperatureUnit();
 
   const weatherIcon = weatherImages.find(
@@ -24,4 +24,4 @@ const WeatherBar = ({ currentWeather }) => {
   );
 };
 
-export default WeatherBar;
+export default WeatherCard;
