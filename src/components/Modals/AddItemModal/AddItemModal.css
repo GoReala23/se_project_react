@@ -1,6 +1,5 @@
 .modal__container {
-  width: auto;
-  max-width: 500px;
+  height: 280px;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -13,8 +12,15 @@
   gap: 15px;
 }
 
+.modal__content {
+  width: 496px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .modal__form-input {
-  width: 100%;
+  width: 440px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

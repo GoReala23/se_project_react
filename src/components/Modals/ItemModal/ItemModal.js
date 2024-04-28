@@ -7,10 +7,9 @@ const ItemModal = ({
   onDelete,
 }) => {
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
-  console.log(selectedCard);
+
   const handleDelete = () => {
     onDelete(selectedCard);
-    onClose();
   };
   return (
     <div className={"modal"}>

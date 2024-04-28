@@ -3,6 +3,10 @@ import "./ConfirmationModal.css";
 const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, item }) => {
   if (!isOpen) return null;
 
+  onclose = () => {
+    onClose();
+  };
+
   return (
     <div className="modal">
       <div className="modal__container">

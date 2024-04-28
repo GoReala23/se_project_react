@@ -28,8 +28,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [temperatureUnit, setTemperatureUnit] = useState("imperial");
   const [clothingItems, setClothingItems] = useState([]);
-  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
-    useState(false);
+
   const [cardToDelete, setCardToDelete] = useState(null);
 
   useEffect(() => {
@@ -43,9 +42,7 @@ function App() {
     getCurrentWeather();
   }, [temperatureUnit]);
 
-  useEffect(() => {
-    console.log("Active Modal State: ", activeModal);
-  }, [activeModal]);
+  useEffect(() => {}, [activeModal]);
 
   useEffect(() => {
     const loadItems = async () => {
@@ -61,7 +58,7 @@ function App() {
   const handleConfirmDelete = async () => {
     if (cardToDelete) {
       await handleDeleteItem(cardToDelete._id);
-      setIsDeleteConfirmationOpen(false);
+      handleCloseModal();
       setCardToDelete(null);
     }
   };
@@ -72,17 +69,18 @@ function App() {
   };
 
   const openConfirmationModal = (card) => {
+    setActiveModal("deleteConfirmation");
+    console.log("delete button clicked:", card);
     setCardToDelete(card);
-    setIsDeleteConfirmationOpen(true);
   };
 
   const handleCreateModal = () => {
     setActiveModal("create");
-    console.log("click");
   };
 
   const handleCloseModal = () => {
     setActiveModal("");
+    setCardToDelete(null);
   };
 
   const handleDeleteItem = async (_id) => {
@@ -172,12 +170,14 @@ function App() {
             />
           )}
 
-          <DeleteConfirmationModal
-            isOpen={isDeleteConfirmationOpen}
-            onClose={handleCloseModal}
-            onConfirm={handleConfirmDelete}
-            item={cardToDelete}
-          />
+          {activeModal === "deleteConfirmation" && (
+            <DeleteConfirmationModal
+              isOpen={activeModal === "deleteConfirmation"}
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmDelete}
+              item={cardToDelete}
+            />
+          )}
         </div>
       </CurrentTemperatureUnitProvider>
     </Router>
