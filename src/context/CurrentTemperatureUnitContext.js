@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 const CurrentTemperatureUnitContext = createContext();
 
 export const CurrentTemperatureUnitProvider = ({ children }) => {
-  const [temperatureUnit, setTemperatureUnit] = useState("imperial"); // Default to Fahrenheit
+  const [temperatureUnit, setTemperatureUnit] = useState("imperial");
 
   const handleUnitChange = () => {
     setTemperatureUnit((currentUnit) =>

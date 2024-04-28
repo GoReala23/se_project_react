@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import WeatherCard from "../WeatherCard/WaetherCard";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
-
 const Main = ({
   currentWeather,
   onSelectCard,
