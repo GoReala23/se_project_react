@@ -1,7 +1,7 @@
 import "./Main.css";
 import React, { useState } from "react";
 import ItemCard from "../ItemCard/ItemCard";
-import WeatherCard from "../WeatherCard/WaetherCard";
+import WeatherCard from "../WeatherCard/WeatherCard";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 const Main = ({
   currentWeather,

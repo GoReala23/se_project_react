@@ -5,7 +5,9 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
 import ItemModal from "../Modals/ItemModal/ItemModal";
-import { CurrentTemperatureUnitProvider } from "../../context/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnitContext";
+
+// import { CurrentTemperatureUnitProvider } from "../../context/CurrentTemperatureUnitContext";
 import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
 
 import "./App.css";
@@ -55,6 +57,13 @@ function App() {
 
     loadItems();
   }, []);
+
+  const toggleTemperatureUnit = () => {
+    setTemperatureUnit((prevUnit) =>
+      prevUnit === "imperial" ? "metric" : "imperial"
+    );
+  };
+
   const handleConfirmDelete = async () => {
     if (cardToDelete) {
       await handleDeleteItem(cardToDelete._id);
@@ -117,8 +126,13 @@ function App() {
   };
   return (
     <Router>
-      <CurrentTemperatureUnitProvider
-        value={{ temperatureUnit, setTemperatureUnit, currentWeather }}
+      <CurrentTemperatureUnitContext.Provider
+        value={{
+          temperatureUnit,
+          setTemperatureUnit,
+          currentWeather,
+          handleUnitChange,
+        }}
       >
         <div className="App">
           <Header
@@ -179,7 +193,7 @@ function App() {
             />
           )}
         </div>
-      </CurrentTemperatureUnitProvider>
+      </CurrentTemperatureUnitContext.Provider>
     </Router>
   );
 }
