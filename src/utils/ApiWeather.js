@@ -1,12 +1,14 @@
 import { API_KEY, LOCATION, weatherCodesLog } from "./constants";
 
-const processServerResponse = async (response) => {
+// ApiWeather.js
+
+export const processServerResponse = async (response) => {
   if (!response.ok) {
     throw new Error("Weather data fetch failed");
   }
+
   return await response.json();
 };
-
 const fetchWeatherData = async (temperatureUnit = "imperial") => {
   const { latitude, longitude } = LOCATION;
   const apiKey = API_KEY;

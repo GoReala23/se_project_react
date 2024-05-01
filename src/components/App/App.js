@@ -4,16 +4,16 @@ import Header from "../Header/Header";
 
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
-import ItemModal from "../Modals/ItemModal/ItemModal";
+import ItemModal from "../ItemModal/ItemModal";
 import { CurrentTemperatureUnitContext } from "../../context/CurrentTemperatureUnitContext";
 import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
 import "./App.css";
 import Profile from "../Profile/Profile";
-import AddItemModal from "../Modals/AddItemModal/AddItemModal";
+import AddItemModal from "../AddItemModal/AddItemModal";
 import { addItem } from "../../utils/Api";
 import { fetchItems } from "../../utils/Api";
 import { deleteItem } from "../../utils/Api";
-import DeleteConfirmationModal from "../Modals/ConfirmationModal/ConfirmationModal";
+import DeleteConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState({
@@ -32,6 +32,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] =
     useState("imperial");
   console.log(currentWeather);
+
   useEffect(() => {
     async function getCurrentWeather() {
       const data = await fetchWeatherData(currentTemperatureUnit);
@@ -48,10 +49,14 @@ function App() {
 
   useEffect(() => {
     const loadItems = async () => {
-      const fetchedItems = await fetchItems();
-      if (fetchedItems) {
-        console.log("Items fetched:", fetchedItems);
-        setClothingItems(fetchedItems);
+      try {
+        const fetchedItems = await fetchItems();
+        if (fetchedItems) {
+          console.log("Items fetched:", fetchedItems);
+          setClothingItems(fetchedItems);
+        }
+      } catch (error) {
+        console.error("Error fetching items:", error);
       }
     };
 
@@ -60,9 +65,14 @@ function App() {
 
   const handleConfirmDelete = async () => {
     if (cardToDelete) {
-      await handleDeleteItem(cardToDelete._id);
-      handleCloseModal();
-      setCardToDelete(null);
+      try {
+        await handleDeleteItem(cardToDelete._id);
+        handleCloseModal();
+        setCardToDelete(null);
+      } catch (error) {
+        console.error("Failed to delete the item:", error);
+        alert("Failed to delete the item. Please try again.");
+      }
     }
   };
 

@@ -1,17 +1,16 @@
+import { processServerResponse } from "./ApiWeather";
+
 const baseUrl = "http://localhost:3001";
 
 export const fetchItems = async () => {
-  try {
-    const response = await fetch(`${baseUrl}/items`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch items");
-    }
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching items:", error);
+  if (!baseUrl) {
+    return [];
   }
+  const response = await fetch(`${baseUrl}/items`);
+
+  const data = processServerResponse(response);
+
+  return data;
 };
 
 export const addItem = async (item) => {

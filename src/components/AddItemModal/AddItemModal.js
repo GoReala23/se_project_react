@@ -25,7 +25,6 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
     const newItem = { name, imageUrl: url, type: "", weather };
     onAddItem(newItem);
     console.log(newItem);
-    onCloseModal();
   }
 
   return (

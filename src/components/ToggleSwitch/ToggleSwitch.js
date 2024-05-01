@@ -6,7 +6,7 @@ const ToggleSwitch = () => {
   const { currentTemperatureUnit, handleToggleSwitchChange } =
     useCurrentTemperatureUnit();
 
-  const isChecked = currentTemperatureUnit === "";
+  const isChecked = currentTemperatureUnit === "metric";
 
   return (
     <label className="switch">
