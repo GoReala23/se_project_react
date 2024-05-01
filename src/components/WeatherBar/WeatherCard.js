@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
-import "./WeatherCard.css";
+import "./WeatherBar.css";
 import { weatherImages } from "../../utils/constants";
 
 const WeatherCard = ({ currentWeather }) => {
-  const { temperatureUnit } = useCurrentTemperatureUnit();
-
+  const { currentTemperatureUnit } = useCurrentTemperatureUnit();
+  console.log(currentWeather);
   const weatherIcon = weatherImages.find(
     (img) => img.type === currentWeather.type && img.day === currentWeather.day
   )?.src.default;
 
   const displayTemperature = () => {
-    return temperatureUnit === "imperial"
+    return currentTemperatureUnit === "imperial"
       ? `${currentWeather.temperature.F}`
       : `${currentWeather.temperature.C}`;
   };

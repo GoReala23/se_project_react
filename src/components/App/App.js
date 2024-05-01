@@ -5,11 +5,8 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
 import ItemModal from "../Modals/ItemModal/ItemModal";
-import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnitContext";
-
-// import { CurrentTemperatureUnitProvider } from "../../context/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../context/CurrentTemperatureUnitContext";
 import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
-
 import "./App.css";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../Modals/AddItemModal/AddItemModal";
@@ -17,6 +14,7 @@ import { addItem } from "../../utils/Api";
 import { fetchItems } from "../../utils/Api";
 import { deleteItem } from "../../utils/Api";
 import DeleteConfirmationModal from "../Modals/ConfirmationModal/ConfirmationModal";
+
 function App() {
   const [currentWeather, setCurrentWeather] = useState({
     city: "",
@@ -28,21 +26,23 @@ function App() {
   const username = "name";
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [temperatureUnit, setTemperatureUnit] = useState("imperial");
+  // const [temperatureUnit, setTemperatureUnit] = useState("imperial");
   const [clothingItems, setClothingItems] = useState([]);
-
   const [cardToDelete, setCardToDelete] = useState(null);
-
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] =
+    useState("imperial");
+  console.log(currentWeather);
   useEffect(() => {
     async function getCurrentWeather() {
-      const data = await fetchWeatherData(temperatureUnit);
+      const data = await fetchWeatherData(currentTemperatureUnit);
       if (data) {
         const weatherData = extractWeatherInfo(data);
+        console.log(weatherData);
         setCurrentWeather(weatherData);
       }
     }
     getCurrentWeather();
-  }, [temperatureUnit]);
+  }, [currentTemperatureUnit]);
 
   useEffect(() => {}, [activeModal]);
 
@@ -58,12 +58,6 @@ function App() {
     loadItems();
   }, []);
 
-  const toggleTemperatureUnit = () => {
-    setTemperatureUnit((prevUnit) =>
-      prevUnit === "imperial" ? "metric" : "imperial"
-    );
-  };
-
   const handleConfirmDelete = async () => {
     if (cardToDelete) {
       await handleDeleteItem(cardToDelete._id);
@@ -71,15 +65,10 @@ function App() {
       setCardToDelete(null);
     }
   };
-  const handleUnitChange = () => {
-    setTemperatureUnit((prevUnit) =>
-      prevUnit === "imperial" ? "metric" : "imperial"
-    );
-  };
 
   const openConfirmationModal = (card) => {
     setActiveModal("deleteConfirmation");
-    console.log("delete button clicked:", card);
+
     setCardToDelete(card);
   };
 
@@ -110,6 +99,12 @@ function App() {
     setSelectedCard(card);
   };
 
+  const handleToggleSwitchChange = () => {
+    setCurrentTemperatureUnit((prevUnit) =>
+      prevUnit === "imperial" ? "metric" : "imperial"
+    );
+  };
+
   const handleAddNewItem = async (newItem) => {
     try {
       const addedItem = await addItem(newItem);
@@ -128,18 +123,19 @@ function App() {
     <Router>
       <CurrentTemperatureUnitContext.Provider
         value={{
-          temperatureUnit,
-          setTemperatureUnit,
+          currentTemperatureUnit,
+          setCurrentTemperatureUnit,
+          handleToggleSwitchChange,
           currentWeather,
-          handleUnitChange,
+          handleToggleSwitchChange,
         }}
       >
         <div className="App">
           <Header
             currentWeather={currentWeather}
             onCreateModal={handleCreateModal}
-            onUnitChange={handleUnitChange}
-            temperatureUnit={temperatureUnit}
+            onUnitChange={handleToggleSwitchChange}
+            temperatureUnit={currentTemperatureUnit}
             name={username}
           />
 
@@ -148,8 +144,8 @@ function App() {
               <Main
                 currentWeather={currentWeather}
                 onSelectCard={handleSelectedCard}
-                onUnitChange={handleUnitChange}
-                temperatureUnit={temperatureUnit}
+                onUnitChange={handleToggleSwitchChange}
+                // temperatureUnit={temperatureUnit}
                 clothingItems={clothingItems}
                 onDeleteItem={openConfirmationModal}
               />
@@ -179,7 +175,7 @@ function App() {
               selectedCard={selectedCard}
               onDelete={openConfirmationModal}
               onClose={handleCloseModal}
-              temperatureUnit={temperatureUnit}
+              temperatureUnit={currentTemperatureUnit}
               currentWeather={currentWeather}
             />
           )}

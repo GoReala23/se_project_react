@@ -3,15 +3,17 @@ import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitC
 import "./ToggleSwitch.css";
 
 const ToggleSwitch = () => {
-  const { temperatureUnit, handleUnitChange } = useCurrentTemperatureUnit();
-  const isChecked = temperatureUnit === "metric";
+  const { currentTemperatureUnit, handleToggleSwitchChange } =
+    useCurrentTemperatureUnit();
+
+  const isChecked = currentTemperatureUnit === "";
 
   return (
     <label className="switch">
       <input
         type="checkbox"
         className="switch__box"
-        onChange={handleUnitChange}
+        onChange={handleToggleSwitchChange}
         checked={isChecked}
       />
       <div className="switch__slider">

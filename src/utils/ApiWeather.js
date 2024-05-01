@@ -10,11 +10,12 @@ const processServerResponse = async (response) => {
 const fetchWeatherData = async (temperatureUnit = "imperial") => {
   const { latitude, longitude } = LOCATION;
   const apiKey = API_KEY;
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${temperatureUnit}&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${"imperial"}&appid=${apiKey}`;
 
   try {
     const response = await fetch(apiUrl);
     const data = await processServerResponse(response);
+
     return data;
   } catch (error) {
     console.error("Error fetching weather data:", error);
@@ -32,6 +33,7 @@ const extractWeatherInfo = (data) => {
     };
   const temperatureF = Math.round(data.main.temp);
   const temperatureC = Math.round(((temperatureF - 32) * 5) / 9);
+  console.log(temperatureC, temperatureF);
   const city = data.name;
   const weatherCodes = data.weather[0].id;
   const type = weatherCodesLog(weatherCodes);

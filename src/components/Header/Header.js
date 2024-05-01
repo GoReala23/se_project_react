@@ -7,10 +7,11 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 
 const Header = ({ currentWeather, onCreateModal, name }) => {
-  const { temperatureUnit, handleUnitChange } = useCurrentTemperatureUnit();
-  const isChecked = temperatureUnit === "imperial";
+  const { currentTemperatureUnit, handleToggleSwitchChange } =
+    useCurrentTemperatureUnit();
+  const isChecked = currentTemperatureUnit === "imperial";
   const displayTemperature = () => {
-    if (temperatureUnit === "imperial") {
+    if (currentTemperatureUnit === "imperial") {
       return `${currentWeather.temperature.F}`;
     } else {
       return `${currentWeather.temperature.C}`;
@@ -29,7 +30,10 @@ const Header = ({ currentWeather, onCreateModal, name }) => {
           </div>
         </div>
         <div className="header__section header__section-right">
-          <ToggleSwitch checked={isChecked} onChange={handleUnitChange} />
+          <ToggleSwitch
+            checked={isChecked}
+            onChange={handleToggleSwitchChange}
+          />
           <div className="header__right-container">
             <button onClick={onCreateModal} className="header_add-clothes">
               Add Clothes

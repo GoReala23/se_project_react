@@ -1,7 +1,7 @@
 import "./Main.css";
 import React, { useState } from "react";
 import ItemCard from "../ItemCard/ItemCard";
-import WeatherCard from "../WeatherCard/WeatherCard";
+import WeatherCard from "../WeatherBar/WeatherCard";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 const Main = ({
   currentWeather,
@@ -10,10 +10,10 @@ const Main = ({
   clothingItems,
 }) => {
   const [selectedItemId, setSelectedItemId] = useState(null);
-  const { temperatureUnit } = useCurrentTemperatureUnit();
+  const { currentTemperatureUnit } = useCurrentTemperatureUnit();
   console.log(clothingItems);
   const displayTemperature =
-    temperatureUnit === "imperial"
+    currentTemperatureUnit === "imperial"
       ? currentWeather.temperature.F
       : currentWeather.temperature.C;
 
@@ -26,7 +26,7 @@ const Main = ({
     <main className="main">
       <WeatherCard
         currentWeather={currentWeather}
-        temperatureUnit={temperatureUnit}
+        temperatureUnit={currentTemperatureUnit}
       />
       <div className="card__weather-today">
         <p>
