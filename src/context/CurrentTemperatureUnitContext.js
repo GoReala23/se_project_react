@@ -26,9 +26,7 @@ import React, { createContext, useContext, useState } from "react";
 
 export const CurrentTemperatureUnitContext = React.createContext({
   currentTemperatureUnit: "imperial",
-  setCurrentTemperatureUnit: () => {},
-  handleToggleSwitchChange: () => {},
-  currentWeather: {},
+
   handleToggleSwitchChange: () => {},
 });
 

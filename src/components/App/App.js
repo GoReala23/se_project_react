@@ -31,28 +31,23 @@ function App() {
   const [cardToDelete, setCardToDelete] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] =
     useState("imperial");
-  console.log(currentWeather);
 
   useEffect(() => {
     async function getCurrentWeather() {
       const data = await fetchWeatherData(currentTemperatureUnit);
       if (data) {
         const weatherData = extractWeatherInfo(data);
-        console.log(weatherData);
         setCurrentWeather(weatherData);
       }
     }
     getCurrentWeather();
   }, [currentTemperatureUnit]);
 
-  useEffect(() => {}, [activeModal]);
-
   useEffect(() => {
     const loadItems = async () => {
       try {
         const fetchedItems = await fetchItems();
         if (fetchedItems) {
-          console.log("Items fetched:", fetchedItems);
           setClothingItems(fetchedItems);
         }
       } catch (error) {
@@ -117,13 +112,15 @@ function App() {
 
   const handleAddNewItem = async (newItem) => {
     try {
-      const addedItem = await addItem(newItem);
-      if (addedItem) {
-        console.log("Item successfully added:", addedItem);
+      const response = await addItem(newItem);
+      if (response && response.ok) {
+        const addedItem = await response.json();
         setClothingItems([addedItem, ...clothingItems]);
         handleCloseModal();
       } else {
         console.error("Failed to add the item.");
+
+        alert("Failed to add the item. Please try again.");
       }
     } catch (error) {
       console.error("Error in adding item:", error);
@@ -137,7 +134,6 @@ function App() {
           setCurrentTemperatureUnit,
           handleToggleSwitchChange,
           currentWeather,
-          handleToggleSwitchChange,
         }}
       >
         <div className="App">
@@ -148,14 +144,12 @@ function App() {
             temperatureUnit={currentTemperatureUnit}
             name={username}
           />
-
           <Switch>
             <Route path="/" exact>
               <Main
                 currentWeather={currentWeather}
                 onSelectCard={handleSelectedCard}
                 onUnitChange={handleToggleSwitchChange}
-                // temperatureUnit={temperatureUnit}
                 clothingItems={clothingItems}
                 onDeleteItem={openConfirmationModal}
               />
@@ -171,7 +165,6 @@ function App() {
             </Route>
           </Switch>
           <Footer />
-
           {activeModal === "create" && (
             <AddItemModal
               isOpen={activeModal === "create"}
@@ -189,7 +182,6 @@ function App() {
               currentWeather={currentWeather}
             />
           )}
-
           {activeModal === "deleteConfirmation" && (
             <DeleteConfirmationModal
               isOpen={activeModal === "deleteConfirmation"}
