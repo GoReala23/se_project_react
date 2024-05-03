@@ -38,6 +38,10 @@
   align-items: center;
 }
 
+.header__link {
+  text-decoration: none;
+  color: black;
+}
 .header__switch {
   width: 56px;
   height: 28px;

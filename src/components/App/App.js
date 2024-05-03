@@ -87,14 +87,13 @@ function App() {
   };
 
   const handleDeleteItem = async (_id) => {
-    const previousItems = [...clothingItems];
-    setClothingItems(clothingItems.filter((item) => item._id !== _id));
-
     try {
       await deleteItem(_id);
+      const previousItems = [...clothingItems];
+      setClothingItems(previousItems.filter((item) => item._id !== _id));
     } catch (error) {
       console.error("Failed to delete the item:", error);
-      setClothingItems(previousItems);
+
       alert("Failed to delete the item. It might have already been deleted.");
     }
   };
