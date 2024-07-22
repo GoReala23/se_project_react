@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./LoginModal.css";
 
 const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });

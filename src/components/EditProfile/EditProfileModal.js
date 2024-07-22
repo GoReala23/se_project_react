@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../ModalWithForm/ModalWithForm.css";
+import "./EditProfileModal.css";
 
 const EditProfileModal = ({ isOpen, onClose, onUpdateUser, currentUser }) => {
   const [formData, setFormData] = useState({
