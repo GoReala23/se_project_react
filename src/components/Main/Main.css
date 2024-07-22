@@ -4,15 +4,26 @@
   flex-direction: column;
   align-content: center;
   background: #f3f3f3;
-  /* width: 1440px; */
-  width: 1360px;
+
+  width: 100%;
   min-height: 822px;
   gap: 0 20px;
   background-color: #f3f3f3;
-  /* padding: 0 20px; */
+
   position: relative;
 }
 
 .card__weather-today {
   text-align: left;
 }
+
+.main__clothes-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* .main__clothes-section .card__container {
+  display: flex;
+  flex-direction: column;
+} */

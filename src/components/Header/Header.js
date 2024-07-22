@@ -1,56 +1,80 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import avatar from "../../images/Avatar.png";
+import avatarPlaceholder from "../../images/Avatar.png"; // Placeholder for user avatar
 import logo from "../../images/Logo.png";
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
+import { useCurrentUser } from "../../context/CurrentUserContext";
 
-const Header = ({ currentWeather, onCreateModal, name }) => {
+const Header = ({
+  currentWeather,
+  onCreateModal,
+  onRegisterModal,
+  onLoginModal,
+
+  isLoggedIn,
+}) => {
   const { currentTemperatureUnit, handleToggleSwitchChange } =
     useCurrentTemperatureUnit();
+  const currentUser = useCurrentUser();
   const isChecked = currentTemperatureUnit === "imperial";
+
   const displayTemperature = () => {
-    if (currentTemperatureUnit === "imperial") {
-      return `${currentWeather.temperature.F}`;
-    } else {
-      return `${currentWeather.temperature.C}`;
+    if (!currentWeather) {
+      return "N/A";
     }
+    return currentTemperatureUnit === "imperial"
+      ? `${currentWeather.temperature.F} F°`
+      : `${currentWeather.temperature.C} C°`;
   };
 
   return (
-    <>
-      <header className="header">
-        <div className="header__section header__section-left">
-          <Link to="/">
-            <img src={logo} alt="logo" className="header__logo" />
-          </Link>
-          <div className="header__date-location">
-            {currentWeather.city} {displayTemperature()}
-          </div>
+    <header className="header">
+      <div className="header__section header__section-left">
+        <Link to="/">
+          <img src={logo} alt="logo" className="header__logo" />
+        </Link>
+        <div className="header__date-location">
+          {currentWeather ? currentWeather.city : "Unknown Location"}{" "}
+          {displayTemperature()}
         </div>
-        <div className="header__section header__section-right">
-          <ToggleSwitch
-            checked={isChecked}
-            onChange={handleToggleSwitchChange}
-          />
-          <div className="header__right-container">
-            <button onClick={onCreateModal} className="header_add-clothes">
-              Add Clothes
-            </button>
+      </div>
+      <div className="header__section header__section-right">
+        <ToggleSwitch checked={isChecked} onChange={handleToggleSwitchChange} />
+        <div className="header__right-container">
+          {isLoggedIn ? (
+            <>
+              <button onClick={onCreateModal} className="header__add-clothes">
+                Add Clothes
+              </button>
+              <Link className="header__link" to="/profile">
+                <p className="header__user-name">{currentUser?.name}</p>
+              </Link>
 
-            <Link className="header__link" to="/profile">
-              <p className="header__user-name">{name}</p>
-            </Link>
-          </div>
-          <div className="header__avatar">
-            <Link to="/profile">
-              <img src={avatar} alt="avatar" className="header__avatar-img" />
-            </Link>
-          </div>
+              <div className="header__avatar">
+                <Link to="/profile">
+                  <img
+                    src={currentUser?.avatar || avatarPlaceholder}
+                    alt="avatar"
+                    className="header__avatar-img"
+                  />
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <button onClick={onRegisterModal} className="header__register">
+                Signup
+              </button>
+              <button onClick={onLoginModal} className="header__login">
+                Login
+              </button>
+            </>
+          )}
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 };
 

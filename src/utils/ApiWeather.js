@@ -35,7 +35,7 @@ const extractWeatherInfo = (data) => {
     };
   const temperatureF = Math.round(data.main.temp);
   const temperatureC = Math.round(((temperatureF - 32) * 5) / 9);
-  console.log(temperatureC, temperatureF);
+
   const city = data.name;
   const weatherCodes = data.weather[0].id;
   const type = weatherCodesLog(weatherCodes);

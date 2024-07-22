@@ -1,4 +1,5 @@
 import "./ItemModal.css";
+
 const ItemModal = ({
   selectedCard,
   onClose,
@@ -11,6 +12,7 @@ const ItemModal = ({
   const handleDelete = () => {
     onDelete(selectedCard);
   };
+
   return (
     <div className={"modal"}>
       <div className="modal__image-container">
@@ -20,7 +22,6 @@ const ItemModal = ({
           onClick={onClose}
         ></button>
         <div>
-          {" "}
           <img
             className="modal__image"
             src={selectedCard.imageUrl}
@@ -32,7 +33,6 @@ const ItemModal = ({
           <p>Weather: {currentWeather.type}</p>
           <div>
             <button className="modal__delete" onClick={handleDelete}>
-              {" "}
               Delete
             </button>
           </div>

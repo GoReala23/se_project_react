@@ -1,8 +1,23 @@
 .card__image {
-  width: 323px;
-  height: 326px;
+  width: 325px;
+  height: 328px;
   border-radius: 10px;
   cursor: pointer;
+  object-fit: cover;
+  z-index: 0;
+  background: transparent;
+}
+
+.card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 5px;
+  gap: 10px;
+  width: auto;
+  height: 24px;
+  z-index: 1;
 }
 
 .card__section {
@@ -10,26 +25,30 @@
   flex-wrap: wrap;
   gap: 16px;
   justify-content: space-between;
-
-  /* padding: 20px; */
 }
 
 .card__container {
-  flex: 0 1 calc(33.3333% - 16px);
+  /* flex: 0 1 calc(33.3333% - 16px); */
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 16px;
   position: relative;
+  background-color: rgb(226, 226, 226);
 }
 
 .card__name {
   margin-top: 10px;
-  position: absolute;
+  z-index: 1;
 }
 
 .card__weather-ifno {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.card__like-button {
+  border: none;
+  background: none;
 }

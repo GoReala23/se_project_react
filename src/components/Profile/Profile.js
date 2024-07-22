@@ -2,23 +2,35 @@ import React from "react";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "./ClothesSection";
 import "./Profile.css";
+
 const Profile = ({
   currentWeather,
-  username,
   onSelectCard,
   onCreateModal,
   clothingItems,
+  onDeleteItem,
+  currentUser,
+  onEditProfileModal,
+  onLogout,
+  onCardLike,
 }) => {
-  console.log("Profile clothingItems:", clothingItems);
-
   return (
     <div className="profile">
-      <SideBar username={username} />
+      <SideBar
+        username={currentUser?.name}
+        avatar={currentUser?.avatar || ""}
+        onEditProfileModal={onEditProfileModal}
+        onLogout={onLogout}
+      />
       <ClothesSection
         clothingItems={clothingItems}
         currentWeather={currentWeather}
         onSelectCard={onSelectCard}
         onCreateModal={onCreateModal}
+        onDeleteItem={onDeleteItem}
+        onCardLike={onCardLike}
+        currentUser={currentUser}
+        showSectionBar={true}
       />
     </div>
   );

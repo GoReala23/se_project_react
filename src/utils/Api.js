@@ -1,39 +1,74 @@
-import { processServerResponse } from "./ApiWeather";
-
 const baseUrl = "http://localhost:3001";
 
-export const fetchItems = async () => {
-  if (!baseUrl) {
-    return [];
+const checkResponse = (response) => {
+  if (!response.ok) {
+    return response.json().then((error) => {
+      throw new Error(error.message);
+    });
   }
-  const response = await fetch(`${baseUrl}/items`);
+  return response.json();
+};
 
-  const data = processServerResponse(response);
-
-  return data;
+export const fetchItems = async () => {
+  const token = localStorage.getItem("jwt");
+  const response = await fetch(`${baseUrl}/items`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return checkResponse(response);
 };
 
 export const addItem = async (item) => {
-  const response = await fetch(`${baseUrl}/items`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(item),
-  });
-  return response;
+  const token = localStorage.getItem("jwt");
+  try {
+    const response = await fetch(`${baseUrl}/items`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(item),
+    });
+
+    return checkResponse(response);
+  } catch (error) {
+    console.error("Error in addItem fetch:", error);
+    throw error;
+  }
 };
 
 export const deleteItem = async (_id) => {
-  try {
-    const response = await fetch(`${baseUrl}/items/${_id}`, {
-      method: "DELETE",
-    });
-    if (!response.ok) {
-      throw new Error("Failed to delete item");
-    }
-  } catch (error) {
-    console.error("Error deleting item:", error);
-    throw error;
-  }
+  const token = localStorage.getItem("jwt");
+  const response = await fetch(`${baseUrl}/items/${_id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return checkResponse(response);
+};
+
+export const addCardLike = async (id, token) => {
+  const response = await fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return checkResponse(response);
+};
+
+export const removeCardLike = async (id, token) => {
+  const response = await fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return checkResponse(response);
 };

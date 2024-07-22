@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import validator from "validator";
+
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 import "./AddItemModal.css";
@@ -7,12 +9,14 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [weather, setWeather] = useState("hot");
+  const [error, setError] = useState(""); // State to hold error message
 
   useEffect(() => {
     if (isOpen) {
       setName("");
       setUrl("");
       setWeather("hot");
+      setError(""); // Reset error message when modal opens
     }
   }, [isOpen]);
 
@@ -22,6 +26,10 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!validator.isURL(url)) {
+      setError("Invalid URL. Please use a valid URL instead of a link.");
+      return;
+    }
     const newItem = { name, imageUrl: url, type: "", weather };
     onAddItem(newItem);
     console.log(newItem);
@@ -47,7 +55,6 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
               placeholder="Name"
             />
           </label>
-
           <label className="modal__form-label">
             Image URL
             <input
@@ -58,6 +65,8 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
               placeholder="Image URL"
             />
           </label>
+          {error && <p className="error-message">{error}</p>}{" "}
+          {/* Display error */}
         </div>
 
         <div className="modal__form-radios">

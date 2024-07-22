@@ -3,17 +3,18 @@ import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitC
 import "./WeatherBar.css";
 import { weatherImages } from "../../utils/constants";
 
-const WeatherCard = ({ currentWeather }) => {
+const WeatherCard = ({ weather }) => {
   const { currentTemperatureUnit } = useCurrentTemperatureUnit();
-  console.log(currentWeather);
+
   const weatherIcon = weatherImages.find(
-    (img) => img.type === currentWeather.type && img.day === currentWeather.day
+    (img) => img.type === weather?.type && img.day === weather?.day
   )?.src.default;
 
   const displayTemperature = () => {
-    return currentTemperatureUnit === "imperial"
-      ? `${currentWeather.temperature.F}`
-      : `${currentWeather.temperature.C}`;
+    if (currentTemperatureUnit === "imperial") {
+      return `${weather?.temperature.F} `;
+    }
+    return `${weather?.temperature.C}`;
   };
 
   return (
