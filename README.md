@@ -1,5 +1,3 @@
-Certainly! Here's a revised version of the README for the WTWR (What To Wear) application without specific file references:
-
 # WTWR (What To Wear) Application
 
 The "What To Wear" (WTWR) application is a dynamic, user-friendly web platform developed with React. It leverages live weather data to recommend the most suitable clothing options for current weather conditions, ensuring users are appropriately dressed for any weather.
@@ -25,6 +23,38 @@ To get the WTWR application up and running on your local machine for development
 2. **Install dependencies**: Navigate to the project directory and run `npm install` to install the necessary dependencies.
 
 3. **Start the application**: Launch the app by running `npm start`. This command will open the application in your default web browser.
+
+### Backend Repository
+
+You can find the backend repository here: [Backend Repository](https://github.com/GoReala23/se_project_express)
+
+### How to Run the Backend
+
+1. **Clone the backend repository:**
+
+   git clone https://github.com/GoReala23/se_project_express.git
+
+2. **Navigate to the project directory:**
+   cd se_project_express
+
+3 **Install the dependencies:**
+npm install
+
+4 **Set up environment variables:**
+
+- Create a .env file in the root of the project.
+- Add the necessary environment variables (e.g., database connection string).
+
+env
+
+MONGO_URI=your-mongodb-connection-string
+PORT=5000
+JWT_SECRET=your-jwt-secret
+
+5 **Start the backend server:**
+
+npm run start
+The server should be running on http://localhost:5000
 
 ## Contributing
 
