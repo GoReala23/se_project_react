@@ -13,6 +13,7 @@ const Main = ({
   onCardLike,
   currentUser,
   onCreateModal,
+  isLoggedIn,
 }) => {
   useEffect(() => {
     console.log("clothingItems in Main:", clothingItems);
@@ -25,7 +26,7 @@ const Main = ({
       </section>
       <section className="main__clothes-container">
         <ClothesSection
-          className="main__clothes-section"
+          className="clothes__section-container--4"
           clothingItems={clothingItems}
           currentWeather={currentWeather}
           onSelectCard={onSelectCard}
@@ -35,6 +36,7 @@ const Main = ({
           currentUser={currentUser}
           showSectionBar={false}
           isMain={true}
+          isLoggedIn={isLoggedIn}
         />
       </section>
     </main>

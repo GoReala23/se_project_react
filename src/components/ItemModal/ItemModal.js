@@ -6,6 +6,7 @@ const ItemModal = ({
   temperatureUnit,
   currentWeather,
   onDelete,
+  isLoggedIn,
 }) => {
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
 
@@ -30,11 +31,13 @@ const ItemModal = ({
         </div>
         <div className="modal__content-weather">
           <p>{selectedCard.name}</p>
-          <p>Weather: {currentWeather.type}</p>
+          <p>Weather: {selectedCard.weather}</p>
           <div>
-            <button className="modal__delete" onClick={handleDelete}>
-              Delete
-            </button>
+            {isLoggedIn && (
+              <button className="modal__delete" onClick={handleDelete}>
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </div>

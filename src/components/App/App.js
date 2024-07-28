@@ -44,6 +44,15 @@ function App() {
     useState("imperial");
   const [registerError, setRegisterError] = useState("");
 
+  const handleLoginModalOpen = () => {
+    setIsLoginModalOpen(true);
+    setIsRegisterModalOpen(false);
+  };
+  const handleRegisterModalOpen = () => {
+    setIsRegisterModalOpen(true);
+    setIsLoginModalOpen(false);
+  };
+
   useEffect(() => {
     async function getCurrentWeather() {
       try {
@@ -180,12 +189,13 @@ function App() {
     try {
       console.log("Logging in user:", formData);
       const res = await loginUser(formData);
+
       if (res && res.token) {
         localStorage.setItem("jwt", res.token);
         setCurrentUser(res.user);
+
         setIsLoggedIn(true);
         setIsLoginModalOpen(false);
-        console.log("User logged in successfully:", res.user);
       }
     } catch (err) {
       console.error("Failed to login:", err.message);
@@ -257,7 +267,7 @@ function App() {
               onLoginModal={() => setIsLoginModalOpen(true)}
               onLogout={handleLogout}
               isLoggedIn={isLoggedIn}
-              user={currentUser}
+              currentUser={currentUser}
             />
             <Switch>
               <Route path="/" exact>
@@ -271,6 +281,7 @@ function App() {
                   onCardLike={handleCardLike}
                   currentUser={currentUser}
                   onCreateModal={handleCreateModal}
+                  isLoggedIn={isLoggedIn}
                 />
               </Route>
               <Route path="/profile" exact>
@@ -286,6 +297,7 @@ function App() {
                     onDeleteItem={openConfirmationModal}
                     currentUser={currentUser}
                     onCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 ) : (
                   <Redirect to="/" />
@@ -321,6 +333,7 @@ function App() {
                 onClose={handleCloseModal}
                 temperatureUnit={currentTemperatureUnit}
                 currentWeather={currentWeather}
+                isLoggedIn={isLoggedIn}
               />
             )}
             {activeModal === "deleteConfirmation" && (
@@ -337,6 +350,7 @@ function App() {
                 onClose={() => setIsRegisterModalOpen(false)}
                 onRegister={handleRegister}
                 errorMessage={registerError}
+                onLoginModal={handleLoginModalOpen}
               />
             )}
             {isLoginModalOpen && (
@@ -344,6 +358,7 @@ function App() {
                 isOpen={isLoginModalOpen}
                 onClose={() => setIsLoginModalOpen(false)}
                 onLogin={handleLogin}
+                onRegisterModal={handleRegisterModalOpen}
               />
             )}
             {isEditProfileModalOpen && (

@@ -11,6 +11,7 @@ const ClothesSection = ({
   onCardLike,
   currentUser,
   showSectionBar,
+  isLoggedIn,
   className,
 }) => {
   const [selectedItemId, setSelectedItemId] = useState(null);
@@ -24,7 +25,7 @@ const ClothesSection = ({
 
   return (
     <div className="clothes__section">
-      {showSectionBar && ( // Conditionally render the section bar
+      {showSectionBar && (
         <div className="clothes__section-bar">
           <p className="clothes__section-text"> Your Items</p>
           <button className="clothes__section-add" onClick={onCreateModal}>
@@ -32,7 +33,7 @@ const ClothesSection = ({
           </button>
         </div>
       )}
-      <ul className="clothes__section-container">
+      <ul className={`clothes__section-container ${className}`}>
         {clothingItems.length > 0 ? (
           clothingItems.map((item) => (
             <ItemCard
@@ -43,6 +44,7 @@ const ClothesSection = ({
               onDeleteItem={onDeleteItem}
               onCardLike={onCardLike}
               currentUser={currentUser}
+              isLoggedIn={isLoggedIn}
             />
           ))
         ) : (

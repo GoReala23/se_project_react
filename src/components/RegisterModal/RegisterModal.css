@@ -1,0 +1,35 @@
+.modal__form-buttons {
+  width: 124px;
+  height: 36px;
+  top: 10px;
+  position: relative;
+}
+
+.modal__form-submit:hover {
+  background-color: #0056b3;
+}
+
+.modal__form-input {
+  border: none;
+  border-bottom: 1px solid #000;
+  width: 440px;
+  margin-top: 10px;
+}
+
+.modal__form-login {
+  background-color: transparent;
+  width: 80px;
+  height: 36px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.modal__form-login:hover {
+  color: #5d5e5f;
+}
+
+.modal__button-container {
+  display: flex;
+  gap: 10px;
+}

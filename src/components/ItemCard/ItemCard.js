@@ -14,6 +14,7 @@ const ItemCard = ({
   onCardLike,
   currentUser,
   className,
+  isLoggedIn,
 }) => {
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
 
@@ -33,18 +34,20 @@ const ItemCard = ({
     <div className="card__container">
       <div className="card__info">
         <p className="card__name">{item.name}</p>
-        <button className="card__like-button" onClick={handleLike}>
-          <img
-            src={isLiked ? likeButton : unlikeButton}
-            alt={isLiked ? "Unlike" : "Like"}
-          />
-        </button>
+        {isLoggedIn && (
+          <button className="card__like-button" onClick={handleLike}>
+            <img
+              src={isLiked ? likeButton : unlikeButton}
+              alt={isLiked ? "Unlike" : "Like"}
+            />
+          </button>
+        )}
       </div>
 
       <div onClick={() => onSelectCard && onSelectCard(item)}>
         <img className="card__image" src={item.imageUrl} alt={item.name} />
         {showWeatherInfo && currentWeather && (
-          <div className="card__weather-info">{currentWeather.type}</div>
+          <div className="card__weather-info">{item.weather}</div>
         )}
       </div>
     </div>

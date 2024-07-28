@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import avatarPlaceholder from "../../images/Avatar.png"; // Placeholder for user avatar
+// import avatarPlaceholder from "../../images/Avatar.png"; // Placeholder for user avatar
 import logo from "../../images/Logo.png";
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
@@ -12,12 +12,11 @@ const Header = ({
   onCreateModal,
   onRegisterModal,
   onLoginModal,
-
+  currentUser,
   isLoggedIn,
 }) => {
   const { currentTemperatureUnit, handleToggleSwitchChange } =
     useCurrentTemperatureUnit();
-  const currentUser = useCurrentUser();
   const isChecked = currentTemperatureUnit === "imperial";
 
   const displayTemperature = () => {
@@ -43,7 +42,7 @@ const Header = ({
       <div className="header__section header__section-right">
         <ToggleSwitch checked={isChecked} onChange={handleToggleSwitchChange} />
         <div className="header__right-container">
-          {isLoggedIn ? (
+          {isLoggedIn && currentUser ? (
             <>
               <button onClick={onCreateModal} className="header__add-clothes">
                 Add Clothes
@@ -55,7 +54,7 @@ const Header = ({
               <div className="header__avatar">
                 <Link to="/profile">
                   <img
-                    src={currentUser?.avatar || avatarPlaceholder}
+                    src={currentUser?.avatar}
                     alt="avatar"
                     className="header__avatar-img"
                   />

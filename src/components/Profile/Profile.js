@@ -13,6 +13,7 @@ const Profile = ({
   onEditProfileModal,
   onLogout,
   onCardLike,
+  isLoggedIn,
 }) => {
   return (
     <div className="profile">
@@ -23,6 +24,7 @@ const Profile = ({
         onLogout={onLogout}
       />
       <ClothesSection
+        className="clothes__section-container--3"
         clothingItems={clothingItems}
         currentWeather={currentWeather}
         onSelectCard={onSelectCard}
@@ -31,6 +33,7 @@ const Profile = ({
         onCardLike={onCardLike}
         currentUser={currentUser}
         showSectionBar={true}
+        isLoggedIn={isLoggedIn}
       />
     </div>
   );
