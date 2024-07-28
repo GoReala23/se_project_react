@@ -1,4 +1,3 @@
-// ItemCard.js
 import React from "react";
 import "./ItemCard.css";
 import likeButton from "../../images/likeButton.png";

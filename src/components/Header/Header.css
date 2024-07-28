@@ -86,15 +86,11 @@
 }
 
 .header__temp-celsius {
-  /* width: 28px;
-  height: 28px; */
   size: 14px;
   left: 28px;
 }
 
 .header__temp-farenheit {
-  /* width: 28px;
-  height: 28px; */
   size: 14px;
   background: #ffffff;
 }

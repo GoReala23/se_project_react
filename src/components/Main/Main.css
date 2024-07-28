@@ -23,7 +23,6 @@
   gap: 20px;
 }
 
-/* .main__clothes-section .card__container {
-  display: flex;
-  flex-direction: column;
-} */
+.main__weather-info {
+  align-self: flex-start;
+}

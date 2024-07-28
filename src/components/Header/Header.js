@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import avatarPlaceholder from "../../images/Avatar.png"; // Placeholder for user avatar
+
 import logo from "../../images/Logo.png";
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";

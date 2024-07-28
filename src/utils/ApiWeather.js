@@ -1,7 +1,5 @@
 import { API_KEY, LOCATION, weatherCodesLog } from "./constants";
 
-// ApiWeather.js
-
 export const processServerResponse = async (response) => {
   if (!response.ok) {
     throw new Error("Weather data fetch failed");
