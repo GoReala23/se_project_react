@@ -85,7 +85,7 @@ const RegisterModal = ({
               className="modal__form-buttons modal__form-submit"
               type="submit"
             >
-              Register
+              Sign Up
             </button>
             <button
               className="modal__form-buttons modal__form-login"

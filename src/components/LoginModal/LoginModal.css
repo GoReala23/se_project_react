@@ -51,7 +51,7 @@
 }
 
 .login__modal-form-submit {
-  background-color: rgba(0, 0, 0, 0.896);
+  background-color: rgba(0, 0, 0, 3);
   color: #fff;
   padding: 10px 15px;
   border: none;
@@ -60,7 +60,7 @@
 }
 
 .login__modal-form-submit:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 1);
 }
 
 .login__modal-close {

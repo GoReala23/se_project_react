@@ -1,31 +1,34 @@
-import React, { useEffect } from "react";
+import React from "react";
 import WeatherCard from "../WeatherBar/WeatherCard";
 import ClothesSection from "../Profile/ClothesSection";
 import "./Main.css";
+import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 
 const Main = ({
-  weather,
   currentWeather,
-  onSelectCard,
-  onUnitChange,
   clothingItems,
+  onSelectCard,
   onDeleteItem,
-  temperatureUnit,
   onCardLike,
   currentUser,
   onCreateModal,
   isLoggedIn,
 }) => {
-  useEffect(() => {}, [clothingItems]);
+  const { currentTemperatureUnit } = useCurrentTemperatureUnit();
 
   return (
     <main className="main">
       <section className="main__weather-section">
-        <WeatherCard weather={currentWeather} onUnitChange={onUnitChange} />
+        <WeatherCard weather={currentWeather} />
       </section>
       <p className="main__weather-info">
-        {" "}
-        Today is {weather}/ You may want to wear:{" "}
+        {currentWeather
+          ? `Today is ${
+              currentTemperatureUnit === "imperial"
+                ? currentWeather.temperature.F
+                : currentWeather.temperature.C
+            } / You may want to wear: `
+          : "Loading weather..."}
       </p>
       <section className="main__clothes-container">
         <ClothesSection

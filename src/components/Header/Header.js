@@ -24,8 +24,8 @@ const Header = ({
       return "N/A";
     }
     return currentTemperatureUnit === "imperial"
-      ? `${currentWeather.temperature.F} F°`
-      : `${currentWeather.temperature.C} C°`;
+      ? `${currentWeather.temperature.F} `
+      : `${currentWeather.temperature.C} `;
   };
 
   return (

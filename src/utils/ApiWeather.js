@@ -23,14 +23,20 @@ const fetchWeatherData = async (temperatureUnit = "imperial") => {
   }
 };
 
+const categorizeWeather = (temperatureF) => {
+  if (temperatureF >= 86) {
+    return "hot";
+  } else if (temperatureF >= 66) {
+    return "warm";
+  } else {
+    return "cold";
+  }
+};
+
 const extractWeatherInfo = (data) => {
   if (!data)
-    return {
-      city: "",
-      temperature: { F: "", C: "" },
-      type: "",
-      day: true,
-    };
+    return { city: "", temperature: { F: "", C: "" }, type: "", day: true };
+
   const temperatureF = Math.round(data.main.temp);
   const temperatureC = Math.round(((temperatureF - 32) * 5) / 9);
 
@@ -38,11 +44,15 @@ const extractWeatherInfo = (data) => {
   const weatherCodes = data.weather[0].id;
   const type = weatherCodesLog(weatherCodes);
   const isDay = data.weather[0].icon.includes("d");
+
+  const weatherCategory = categorizeWeather(temperatureF);
+
   return {
     city,
     temperature: { F: `${temperatureF}°F`, C: `${temperatureC}°C` },
     type,
     day: isDay,
+    category: weatherCategory,
   };
 };
-export { fetchWeatherData, extractWeatherInfo };
+export { fetchWeatherData, extractWeatherInfo, categorizeWeather };

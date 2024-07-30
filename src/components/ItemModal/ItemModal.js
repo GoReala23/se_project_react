@@ -1,4 +1,5 @@
 import "./ItemModal.css";
+import { categorizeWeather } from "../../utils/ApiWeather";
 
 const ItemModal = ({
   selectedCard,
@@ -7,12 +8,21 @@ const ItemModal = ({
   currentWeather,
   onDelete,
   isLoggedIn,
+  context,
 }) => {
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
 
   const handleDelete = () => {
     onDelete(selectedCard);
   };
+
+  const currentWeatherCategory = currentWeather
+    ? categorizeWeather(
+        temperatureUnit === "imperial"
+          ? parseFloat(currentWeather.temperature.F)
+          : (parseFloat(currentWeather.temperature.C) * 9) / 5 + 32
+      )
+    : "Unknown";
 
   return (
     <div className={"modal"}>
@@ -31,7 +41,7 @@ const ItemModal = ({
         </div>
         <div className="modal__content-weather">
           <p>{selectedCard.name}</p>
-          <p>Weather: {selectedCard.weather}</p>
+          <p>Weather: {currentWeatherCategory}</p>
           <div>
             {isLoggedIn && (
               <button className="modal__delete" onClick={handleDelete}>
