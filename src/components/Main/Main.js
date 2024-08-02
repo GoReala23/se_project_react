@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import CurrentUserContext from "../../context/CurrentUserContext";
 import WeatherCard from "../WeatherBar/WeatherCard";
 import ClothesSection from "../Profile/ClothesSection";
 import "./Main.css";
@@ -10,11 +11,16 @@ const Main = ({
   onSelectCard,
   onDeleteItem,
   onCardLike,
-  currentUser,
+
   onCreateModal,
   isLoggedIn,
 }) => {
   const { currentTemperatureUnit } = useCurrentTemperatureUnit();
+  const currentUser = useContext(CurrentUserContext);
+
+  const filteredItems = clothingItems.filter((item) =>
+    item.weather.includes(currentWeather?.weather)
+  );
 
   return (
     <main className="main">
@@ -33,7 +39,7 @@ const Main = ({
       <section className="main__clothes-container">
         <ClothesSection
           className="clothes__section-container--4"
-          clothingItems={clothingItems}
+          clothingItems={filteredItems}
           currentWeather={currentWeather}
           onSelectCard={onSelectCard}
           onCreateModal={onCreateModal}

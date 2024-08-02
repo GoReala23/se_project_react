@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import "../ModalWithForm/ModalWithForm.css";
+import React from "react";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import "./RegisterModal.css";
 
 const RegisterModal = ({
@@ -9,101 +10,79 @@ const RegisterModal = ({
   errorMessage,
   onLoginModal,
 }) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    name: "",
-    avatar: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(formData);
+    onRegister(values);
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="modal">
-      <div className="modal__content">
-        <h2>Register</h2>
-        <form onSubmit={handleSubmit}>
-          <label className="modal__form-label">
-            Email
-            <input
-              className="modal__form-input"
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label className="modal__form-label">
-            Password
-            <input
-              className="modal__form-input"
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label className="modal__form-label">
-            Name
-            <input
-              className="modal__form-input"
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label className="modal__form-label">
-            Avatar URL
-            <input
-              className="modal__form-input"
-              type="url"
-              name="avatar"
-              placeholder="Avatar URL"
-              value={formData.avatar}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <div className="modal__buttons-container">
-            <button
-              className="modal__form-buttons modal__form-submit"
-              type="submit"
-            >
-              Sign Up
-            </button>
-            <button
-              className="modal__form-buttons modal__form-login"
-              type="button"
-              onClick={onLoginModal}
-            >
-              or log in
-            </button>
-          </div>
-          <button
-            className="modal__close"
-            type="button"
-            onClick={onClose}
-          ></button>
-        </form>
-        {errorMessage && <p className="error__message">{errorMessage}</p>}
-      </div>
-    </div>
+    <ModalWithForm
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      title="Register"
+      buttonText="Sign Up"
+      secondaryButtonText="or log in"
+      onSecondaryButtonClick={onLoginModal}
+      isSubmitDisabled={!isValid}
+    >
+      <label className="modal__form-label">
+        Email
+        <input
+          className="modal__form-input"
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={values.email || ""}
+          onChange={handleChange}
+          required
+        />
+        {errors.email && <p className="error__message">{errors.email}</p>}
+      </label>
+      <label className="modal__form-label">
+        Password
+        <input
+          className="modal__form-input"
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={values.password || ""}
+          onChange={handleChange}
+          required
+        />
+        {errors.password && <p className="error__message">{errors.password}</p>}
+      </label>
+      <label className="modal__form-label">
+        Name
+        <input
+          className="modal__form-input"
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={values.name || ""}
+          onChange={handleChange}
+          required
+        />
+        {errors.name && <p className="error__message">{errors.name}</p>}
+      </label>
+      <label className="modal__form-label">
+        Avatar URL
+        <input
+          className="modal__form-input"
+          type="url"
+          name="avatar"
+          placeholder="Avatar URL"
+          value={values.avatar || ""}
+          onChange={handleChange}
+          required
+        />
+        {errors.avatar && <p className="error__message">{errors.avatar}</p>}
+      </label>
+      {errorMessage && <p className="error__message">{errorMessage}</p>}
+    </ModalWithForm>
   );
 };
 

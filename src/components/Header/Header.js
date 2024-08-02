@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import CurrentUserContext from "../../context/CurrentUserContext";
 import { Link } from "react-router-dom";
-
 import logo from "../../images/Logo.png";
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
-import { useCurrentUser } from "../../context/CurrentUserContext";
 
 const Header = ({
   currentWeather,
   onCreateModal,
   onRegisterModal,
   onLoginModal,
-  currentUser,
+
   isLoggedIn,
 }) => {
   const { currentTemperatureUnit, handleToggleSwitchChange } =
     useCurrentTemperatureUnit();
+
+  const currentUser = useContext(CurrentUserContext);
+
   const isChecked = currentTemperatureUnit === "imperial";
 
   const displayTemperature = () => {
@@ -28,6 +30,9 @@ const Header = ({
       : `${currentWeather.temperature.C} `;
   };
 
+  const options = { month: "long", day: "numeric" };
+  const currentDate = new Date().toLocaleDateString(undefined, options);
+
   return (
     <header className="header">
       <div className="header__section header__section-left">
@@ -35,8 +40,8 @@ const Header = ({
           <img src={logo} alt="logo" className="header__logo" />
         </Link>
         <div className="header__date-location">
-          {currentWeather ? currentWeather.city : "Unknown Location"}{" "}
-          {displayTemperature()}
+          {currentDate},{" "}
+          {currentWeather ? currentWeather.city : "Unknown Location"}
         </div>
       </div>
       <div className="header__section header__section-right">

@@ -1,3 +1,5 @@
+import { checkResponse } from "../utils/Api";
+
 const baseUrl = "http://localhost:3001";
 
 export const registerUser = async ({ name, email, password }) => {
@@ -9,14 +11,7 @@ export const registerUser = async ({ name, email, password }) => {
       },
       body: JSON.stringify({ name, email, password }),
     });
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Registration failed:", errorData.message);
-      throw new Error(errorData.message || "Failed to register");
-    }
-    const data = await response.json();
-    console.log("User registered successfully:", data);
-    return data;
+    return checkResponse(response);
   } catch (error) {
     console.error("Error during registration:", error);
     throw error;
@@ -32,15 +27,8 @@ export const loginUser = async ({ email, password }) => {
       },
       body: JSON.stringify({ email, password }),
     });
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Login failed:", errorData.message);
-      throw new Error(errorData.message || "Failed to login");
-    }
-    const data = await response.json();
-    console.log("response data:", data);
+    const data = await checkResponse(response);
     localStorage.setItem("jwt", data.token);
-    console.log("User logged in successfully:", data);
     return data;
   } catch (error) {
     console.error("Error during login:", error);
@@ -57,14 +45,7 @@ export const getUser = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Fetching user data failed:", errorData.message);
-      throw new Error(errorData.message || "Failed to get user");
-    }
-    const data = await response.json();
-
-    return data;
+    return checkResponse(response);
   } catch (error) {
     console.error("Error fetching user data:", error);
     throw error;
@@ -81,12 +62,7 @@ export const updateUser = async (token, { name, avatar }) => {
       },
       body: JSON.stringify({ name, avatar }),
     });
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Updating user data failed:", errorData.message);
-      throw new Error(errorData.message || "Failed to update user");
-    }
-    const data = await response.json();
+    const data = await checkResponse(response);
     console.log("User data updated successfully:", data);
     return data;
   } catch (error) {

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import CurrentUserContext from "../../context/CurrentUserContext";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "./ClothesSection";
 import "./Profile.css";
@@ -9,12 +10,17 @@ const Profile = ({
   onCreateModal,
   clothingItems,
   onDeleteItem,
-  currentUser,
+
   onEditProfileModal,
   onLogout,
   onCardLike,
   isLoggedIn,
 }) => {
+  const currentUser = useContext(CurrentUserContext);
+  const filteredClothingItems = clothingItems.filter(
+    (item) => item.owner === currentUser._id
+  );
+
   return (
     <div className="profile">
       <SideBar
@@ -25,7 +31,7 @@ const Profile = ({
       />
       <ClothesSection
         className="clothes__section-container--3"
-        clothingItems={clothingItems}
+        clothingItems={filteredClothingItems}
         currentWeather={currentWeather}
         onSelectCard={onSelectCard}
         onCreateModal={onCreateModal}

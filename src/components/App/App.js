@@ -1,5 +1,4 @@
 import "./App.css";
-
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -17,10 +16,11 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import EditProfileModal from "../EditProfile/EditProfileModal";
 import DeleteConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import CurrentUserContext from "../../context/CurrentUserContext";
 import { CurrentTemperatureUnitContext } from "../../context/CurrentTemperatureUnitContext";
 import { fetchWeatherData, extractWeatherInfo } from "../../utils/ApiWeather";
-import { getUser, registerUser, loginUser, updateUser } from "../../auth";
+import { getUser, registerUser, loginUser, updateUser } from "../../utils/auth";
 import {
   fetchItems,
   addItem,
@@ -43,6 +43,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] =
     useState("imperial");
   const [registerError, setRegisterError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLoginModalOpen = () => {
     setIsLoginModalOpen(true);
@@ -97,6 +98,30 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    const handleClickOutside = (e) => {
+      if (e.target.classList.contains("modal")) {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeModal]);
+
   const handleConfirmDelete = async () => {
     if (cardToDelete) {
       try {
@@ -150,21 +175,27 @@ function App() {
       prevUnit === "imperial" ? "metric" : "imperial"
     );
   };
-  const handleAddNewItem = async (newItem) => {
-    try {
-      const response = await addItem(newItem);
 
-      if (response) {
-        setClothingItems((prevItems) => [response, ...prevItems]);
-        handleCloseModal();
-      } else {
-        console.error("Failed to add the item.");
-        alert("Failed to add the item. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error in adding item:", error);
-      alert("An error occurred while adding the item. Please try again.");
-    }
+  function handleSubmit(request) {
+    setIsLoading(true);
+    request()
+      .then(handleCloseModal)
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
+  }
+
+  const handleAddNewItem = (newItem) => {
+    const makeRequest = () => {
+      return addItem(newItem).then((response) => {
+        if (response) {
+          setClothingItems((prevItems) => [response, ...prevItems]);
+        } else {
+          console.error("Failed to add the item.");
+          alert("Failed to add the item. Please try again.");
+        }
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleRegister = async (formData) => {
@@ -267,7 +298,6 @@ function App() {
               onLoginModal={() => setIsLoginModalOpen(true)}
               onLogout={handleLogout}
               isLoggedIn={isLoggedIn}
-              currentUser={currentUser}
             />
             <Switch>
               <Route path="/" exact>
@@ -284,8 +314,10 @@ function App() {
                   isLoggedIn={isLoggedIn}
                 />
               </Route>
-              <Route path="/profile" exact>
-                {isLoggedIn ? (
+              <ProtectedRoute
+                path="/profile"
+                exact
+                component={() => (
                   <Profile
                     currentWeather={currentWeather}
                     onSelectCard={handleSelectedCard}
@@ -299,10 +331,8 @@ function App() {
                     onCardLike={handleCardLike}
                     isLoggedIn={isLoggedIn}
                   />
-                ) : (
-                  <Redirect to="/" />
                 )}
-              </Route>
+              />
               <Route path="/login" exact>
                 {isLoggedIn ? (
                   <Redirect to="/" />
@@ -366,7 +396,6 @@ function App() {
                 isOpen={isEditProfileModalOpen}
                 onClose={() => setIsEditProfileModalOpen(false)}
                 onUpdateUser={handleUpdateUser}
-                currentUser={currentUser}
               />
             )}
             <Footer />

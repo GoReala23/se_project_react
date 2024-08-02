@@ -45,8 +45,8 @@ const ItemCard = ({
 
       <div onClick={() => onSelectCard && onSelectCard(item)}>
         <img className="card__image" src={item.imageUrl} alt={item.name} />
-        {showWeatherInfo && currentWeather && (
-          <div className="card__weather-info">{item.weather}</div>
+        {showWeatherInfo && item.weather && (
+          <div className="card__weather-info">{item.weather.join(", ")}</div>
         )}
       </div>
     </div>

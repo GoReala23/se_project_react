@@ -1,39 +1,28 @@
-import React, { useState, useEffect } from "react";
-import validator from "validator";
-
+import React, { useEffect } from "react";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-
 import "./AddItemModal.css";
 
 const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
-  const [name, setName] = useState("");
-  const [url, setUrl] = useState("");
-  const [weather, setWeather] = useState("hot");
-  const [error, setError] = useState(""); // State to hold error message
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
 
   useEffect(() => {
     if (isOpen) {
-      setName("");
-      setUrl("");
-      setWeather("hot");
-      setError(""); // Reset error message when modal opens
+      resetForm();
     }
-  }, [isOpen]);
+  }, [isOpen, resetForm]);
 
-  const handleNameChange = (e) => setName(e.target.value);
-  const handleUrlChange = (e) => setUrl(e.target.value);
-  const handleWeatherChange = (e) => setWeather(e.target.value);
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validator.isURL(url)) {
-      setError("Invalid URL. Please use a valid URL instead of a link.");
-      return;
-    }
-    const newItem = { name, imageUrl: url, type: "", weather };
+    const newItem = {
+      name: values.name,
+      imageUrl: values.url,
+      type: "",
+      weather: values.weather,
+    };
     onAddItem(newItem);
-    console.log(newItem);
-  }
+  };
 
   return (
     <ModalWithForm
@@ -42,6 +31,7 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
       onSubmit={handleSubmit}
       title="New Garment"
       buttonText="Add Item"
+      isSubmitDisabled={!isValid}
     >
       <div className="modal__form">
         <div>
@@ -50,25 +40,28 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
             <input
               className="modal__form-input"
               type="text"
-              value={name}
-              onChange={handleNameChange}
+              name="name"
+              value={values.name || ""}
+              onChange={handleChange}
               placeholder="Name"
+              required
             />
+            {errors.name && <p className="error__message">{errors.name}</p>}
           </label>
           <label className="modal__form-label">
             Image URL
             <input
               className="modal__form-input"
-              type="text"
-              value={url}
-              onChange={handleUrlChange}
+              type="url"
+              name="url"
+              value={values.url || ""}
+              onChange={handleChange}
               placeholder="Image URL"
+              required
             />
+            {errors.url && <p className="error__message">{errors.url}</p>}
           </label>
-          {error && <p className="error-message">{error}</p>}{" "}
-          {/* Display error */}
         </div>
-
         <div className="modal__form-radios">
           Weather
           <label>
@@ -76,8 +69,9 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
               type="radio"
               name="weather"
               value="hot"
-              checked={weather === "hot"}
-              onChange={handleWeatherChange}
+              checked={values.weather === "hot"}
+              onChange={handleChange}
+              required
             />
             Hot
           </label>
@@ -86,8 +80,9 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
               type="radio"
               name="weather"
               value="cold"
-              checked={weather === "cold"}
-              onChange={handleWeatherChange}
+              checked={values.weather === "cold"}
+              onChange={handleChange}
+              required
             />
             Cold
           </label>
@@ -96,8 +91,9 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
               type="radio"
               name="weather"
               value="warm"
-              checked={weather === "warm"}
-              onChange={handleWeatherChange}
+              checked={values.weather === "warm"}
+              onChange={handleChange}
+              required
             />
             Warm
           </label>

@@ -36,7 +36,7 @@
   background-color: white;
   position: relative;
   width: 670px;
-  height: 436px;
+  height: 520px;
   gap: 10px;
   border-radius: 20px;
   padding: 20px;
@@ -74,13 +74,36 @@
   margin-bottom: 10px;
 }
 
-.modal__form-submit {
+.modal__form-submit:enabled {
   width: 124px;
   height: 36px;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  cursor: pointer;
+}
+
+.modal__form-submit:enabled:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__form-submit:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modal__form-radios {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.modal__button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.error__message {
+  color: rgba(255, 77, 0, 1);
+  font-size: 12px;
 }

@@ -3,16 +3,10 @@ import "./ConfirmationModal.css";
 const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, item }) => {
   if (!isOpen) return null;
 
-  onclose = () => {
-    onClose();
-  };
-
   return (
     <div className="modal">
       <div className="modal__container">
-        <button className="modal__close" onClick={onClose}>
-          X
-        </button>
+        <button className="modal__close" onClick={onClose}></button>
         <p className="modal__confirm-question">
           Are you sure you want to delete{" "}
           {item ? `"${item.name}"` : "this item"}? This action is irreversible.

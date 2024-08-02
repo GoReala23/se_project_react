@@ -1,6 +1,6 @@
 const baseUrl = "http://localhost:3001";
 
-const checkResponse = (response) => {
+export const checkResponse = (response) => {
   if (!response.ok) {
     return response.json().then((error) => {
       throw new Error(error.message);

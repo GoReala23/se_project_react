@@ -1,5 +1,7 @@
+import React, { useContext } from "react";
+import CurrentUserContext from "../../context/CurrentUserContext";
+
 import "./ItemModal.css";
-import { categorizeWeather } from "../../utils/ApiWeather";
 
 const ItemModal = ({
   selectedCard,
@@ -10,19 +12,23 @@ const ItemModal = ({
   isLoggedIn,
   context,
 }) => {
+  const currentUser = useContext(CurrentUserContext);
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
 
   const handleDelete = () => {
     onDelete(selectedCard);
   };
 
-  const currentWeatherCategory = currentWeather
-    ? categorizeWeather(
-        temperatureUnit === "imperial"
-          ? parseFloat(currentWeather.temperature.F)
-          : (parseFloat(currentWeather.temperature.C) * 9) / 5 + 32
+  console.log("Selected Card:", selectedCard);
+  console.log("Current Weather:", currentWeather);
+
+  const normalizedCurrentWeather = currentWeather.weather.trim().toLowerCase();
+  const weatherType = Array.isArray(selectedCard.weather)
+    ? selectedCard.weather.find(
+        (weather) => weather.trim().toLowerCase() === normalizedCurrentWeather
       )
-    : "Unknown";
+    : null;
+  console.log("Weather Type:", weatherType);
 
   return (
     <div className={"modal"}>
@@ -41,9 +47,9 @@ const ItemModal = ({
         </div>
         <div className="modal__content-weather">
           <p>{selectedCard.name}</p>
-          <p>Weather: {currentWeatherCategory}</p>
+          <p>Weather: {currentWeather.weather}</p>
           <div>
-            {isLoggedIn && (
+            {currentUser && (
               <button className="modal__delete" onClick={handleDelete}>
                 Delete
               </button>
