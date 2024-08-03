@@ -7,14 +7,12 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 
 const Header = ({
-  currentWeather,
   onCreateModal,
   onRegisterModal,
   onLoginModal,
-
   isLoggedIn,
 }) => {
-  const { currentTemperatureUnit, handleToggleSwitchChange } =
+  const { currentTemperatureUnit, handleToggleSwitchChange, currentWeather } =
     useCurrentTemperatureUnit();
 
   const currentUser = useContext(CurrentUserContext);

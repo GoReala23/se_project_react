@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../context/CurrentUserContext";
 import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
 
 const ClothesSection = ({
-  currentWeather,
   onSelectCard,
   onCreateModal,
   clothingItems,
   onDeleteItem,
   onCardLike,
-  currentUser,
+
   showSectionBar,
   isLoggedIn,
   className,
 }) => {
+  const { currentWeather } = useCurrentTemperatureUnit();
+  // const currentUser = useContext(CurrentUserContext);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
   useEffect(() => {}, [clothingItems]);
@@ -39,11 +42,9 @@ const ClothesSection = ({
             <ItemCard
               key={item._id}
               item={item}
-              currentWeather={currentWeather}
               onSelectCard={() => handleSelectCard(item)}
               onDeleteItem={onDeleteItem}
               onCardLike={onCardLike}
-              currentUser={currentUser}
               isLoggedIn={isLoggedIn}
             />
           ))

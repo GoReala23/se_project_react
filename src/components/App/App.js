@@ -289,7 +289,6 @@ function App() {
         >
           <div className="App">
             <Header
-              currentWeather={currentWeather}
               onCreateModal={handleCreateModal}
               onUnitChange={handleToggleSwitchChange}
               temperatureUnit={currentTemperatureUnit}
@@ -302,14 +301,12 @@ function App() {
             <Switch>
               <Route path="/" exact>
                 <Main
-                  currentWeather={currentWeather}
                   onSelectCard={handleSelectedCard}
                   onUnitChange={handleToggleSwitchChange}
                   clothingItems={clothingItems}
                   onDeleteItem={openConfirmationModal}
                   temperatureUnit={currentTemperatureUnit}
                   onCardLike={handleCardLike}
-                  currentUser={currentUser}
                   onCreateModal={handleCreateModal}
                   isLoggedIn={isLoggedIn}
                 />
@@ -319,7 +316,6 @@ function App() {
                 exact
                 component={() => (
                   <Profile
-                    currentWeather={currentWeather}
                     onSelectCard={handleSelectedCard}
                     onCreateModal={handleCreateModal}
                     clothingItems={clothingItems}
@@ -327,7 +323,6 @@ function App() {
                     onEditProfileModal={handleEditProfileModal}
                     onUpdateUser={handleUpdateUser}
                     onDeleteItem={openConfirmationModal}
-                    currentUser={currentUser}
                     onCardLike={handleCardLike}
                     isLoggedIn={isLoggedIn}
                   />
@@ -362,7 +357,6 @@ function App() {
                 onDelete={openConfirmationModal}
                 onClose={handleCloseModal}
                 temperatureUnit={currentTemperatureUnit}
-                currentWeather={currentWeather}
                 isLoggedIn={isLoggedIn}
               />
             )}

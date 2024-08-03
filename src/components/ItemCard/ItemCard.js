@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../context/CurrentUserContext";
 import "./ItemCard.css";
 import likeButton from "../../images/likeButton.png";
 import unlikeButton from "../../images/unlikeButton.png";
 
 const ItemCard = ({
   item,
-  currentWeather,
   showWeatherInfo,
   onSelectCard,
   temperatureUnit,
   onDeleteItem,
   onCardLike,
-  currentUser,
   className,
   isLoggedIn,
 }) => {
+  // const currentWeather = useCurrentTemperatureUnit();
+  const currentUser = useContext(CurrentUserContext);
+  const { currentTemperatureUnit } = useCurrentTemperatureUnit();
   const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
 
   const isLiked = item.likes

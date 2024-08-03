@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
 import CurrentUserContext from "../../context/CurrentUserContext";
 
 import "./ItemModal.css";
@@ -6,14 +7,14 @@ import "./ItemModal.css";
 const ItemModal = ({
   selectedCard,
   onClose,
-  temperatureUnit,
-  currentWeather,
   onDelete,
   isLoggedIn,
   context,
 }) => {
   const currentUser = useContext(CurrentUserContext);
-  const displayUnit = temperatureUnit === "imperial" ? " F°" : " C°";
+  const { currentWeather, currentTemperatureUnit } =
+    useCurrentTemperatureUnit();
+  const displayUnit = currentTemperatureUnit === "imperial" ? " F°" : " C°";
 
   const handleDelete = () => {
     onDelete(selectedCard);
@@ -47,7 +48,7 @@ const ItemModal = ({
         </div>
         <div className="modal__content-weather">
           <p>{selectedCard.name}</p>
-          <p>Weather: {currentWeather.weather}</p>
+          <p>Weather: {selectedCard.weather}</p>
           <div>
             {currentUser && (
               <button className="modal__delete" onClick={handleDelete}>

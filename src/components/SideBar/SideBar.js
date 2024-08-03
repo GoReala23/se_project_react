@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import CurrentUserContext from "../../context/CurrentUserContext";
 import "./SideBar.css";
 import avatarDefault from "../../images/Avatar.png";
 
-const SideBar = ({ username, avatar, onEditProfileModal, onLogout }) => {
+const SideBar = ({ onEditProfileModal, onLogout }) => {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <aside className="sidebar">
       <div className="sidebar__profile">
@@ -10,10 +12,10 @@ const SideBar = ({ username, avatar, onEditProfileModal, onLogout }) => {
           {" "}
           <img
             className="sidebar__avatar"
-            src={avatar || avatarDefault}
+            src={currentUser?.avatar || avatarDefault}
             alt="avatar"
           />
-          <p className="sidebar__username">{username}</p>
+          <p className="sidebar__username">{currentUser?.username}</p>
         </div>
         <button
           className="sidebar__button sidebar__edit-profile"
