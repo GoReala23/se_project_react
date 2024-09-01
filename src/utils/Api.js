@@ -1,4 +1,7 @@
-const baseUrl = "http://localhost:3001";
+const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://api.what2wear.strangled.net'
+    : 'http://localhost:3001';
 
 export const checkResponse = (response) => {
   if (!response.ok) {
@@ -10,11 +13,11 @@ export const checkResponse = (response) => {
 };
 
 export const fetchItems = async () => {
-  const token = localStorage.getItem("jwt");
+  const token = localStorage.getItem('jwt');
   const response = await fetch(`${baseUrl}/items`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });
@@ -22,12 +25,12 @@ export const fetchItems = async () => {
 };
 
 export const addItem = async (item) => {
-  const token = localStorage.getItem("jwt");
+  const token = localStorage.getItem('jwt');
   try {
     const response = await fetch(`${baseUrl}/items`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(item),
@@ -35,15 +38,15 @@ export const addItem = async (item) => {
 
     return checkResponse(response);
   } catch (error) {
-    console.error("Error in addItem fetch:", error);
+    console.error('Error in addItem fetch:', error);
     throw error;
   }
 };
 
 export const deleteItem = async (_id) => {
-  const token = localStorage.getItem("jwt");
+  const token = localStorage.getItem('jwt');
   const response = await fetch(`${baseUrl}/items/${_id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -53,9 +56,9 @@ export const deleteItem = async (_id) => {
 
 export const addCardLike = async (id, token) => {
   const response = await fetch(`${baseUrl}/items/${id}/likes`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });
@@ -64,9 +67,9 @@ export const addCardLike = async (id, token) => {
 
 export const removeCardLike = async (id, token) => {
   const response = await fetch(`${baseUrl}/items/${id}/likes`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });

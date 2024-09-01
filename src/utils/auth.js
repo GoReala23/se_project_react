@@ -1,19 +1,22 @@
-import { checkResponse } from "../utils/Api";
+import { checkResponse } from '../utils/Api';
 
-const baseUrl = "http://localhost:3001";
+const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://api.what2wear.strangled.net'
+    : 'http://localhost:3001';
 
-export const registerUser = async ({ name, email, password }) => {
+export const registerUser = async ({ name, email, password, avatar }) => {
   try {
     const response = await fetch(`${baseUrl}/signup`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, avatar }),
     });
     return checkResponse(response);
   } catch (error) {
-    console.error("Error during registration:", error);
+    console.error('Error during registration:', error);
     throw error;
   }
 };
@@ -21,17 +24,17 @@ export const registerUser = async ({ name, email, password }) => {
 export const loginUser = async ({ email, password }) => {
   try {
     const response = await fetch(`${baseUrl}/signin`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
     });
     const data = await checkResponse(response);
-    localStorage.setItem("jwt", data.token);
+    localStorage.setItem('jwt', data.token);
     return data;
   } catch (error) {
-    console.error("Error during login:", error);
+    console.error('Error during login:', error);
     throw error;
   }
 };
@@ -39,15 +42,15 @@ export const loginUser = async ({ email, password }) => {
 export const getUser = async (token) => {
   try {
     const response = await fetch(`${baseUrl}/users/me`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
     return checkResponse(response);
   } catch (error) {
-    console.error("Error fetching user data:", error);
+    console.error('Error fetching user data:', error);
     throw error;
   }
 };
@@ -55,18 +58,18 @@ export const getUser = async (token) => {
 export const updateUser = async (token, { name, avatar }) => {
   try {
     const response = await fetch(`${baseUrl}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name, avatar }),
     });
     const data = await checkResponse(response);
-    console.log("User data updated successfully:", data);
+    console.log('User data updated successfully:', data);
     return data;
   } catch (error) {
-    console.error("Error updating user data:", error);
+    console.error('Error updating user data:', error);
     throw error;
   }
 };
