@@ -1,7 +1,9 @@
-import validator from "validator";
+import validator from 'validator';
 
 // Utility function to validate URLs
 export const validateUrl = (url) => {
+  const isValid = validator.isURL(url);
+  console.log(`Validating URL "${url}": ${isValid}`);
   return validator.isURL(url);
 };
 

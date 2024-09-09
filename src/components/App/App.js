@@ -199,10 +199,10 @@ function App() {
   };
 
   const handleRegister = async (formData) => {
-    console.log(formData);
     try {
       console.log('Registering user:', formData);
       const res = await registerUser(formData);
+
       if (res && res.token) {
         localStorage.setItem('jwt', res.token);
         setCurrentUser(res.user);
@@ -212,11 +212,46 @@ function App() {
         console.log('User registered successfully:', res.user);
       }
     } catch (err) {
-      console.error('Registration failed:', err.message);
-      console.error('full error response: ', err);
-      setRegisterError('Registration failed. Please try again.');
+      // Check if it's a validation error from the backend
+      if (err.response && err.response.data && err.response.data.details) {
+        const errorDetails = err.response.data.details;
+        const errorMessages = errorDetails
+          .map((errorDetail) => errorDetail.message)
+          .join(', '); // Collect all error messages
+        console.error('Validation errors:', errorMessages);
+        setRegisterError(`Validation failed: ${errorMessages}`); // Display errors to the user
+      } else {
+        // Handle unexpected errors
+        console.error('Registration failed:', err.message);
+        setRegisterError('An unexpected error occurred during registration.');
+      }
     }
   };
+
+  // const handleRegister = async (formData) => {
+  //   try {
+  //     console.log('Registering user:', formData);
+  //     const res = await registerUser(formData);
+  //     if (res && res.token) {
+  //       localStorage.setItem('jwt', res.token);
+  //       setCurrentUser(res.user);
+  //       setIsLoggedIn(true);
+  //       setIsRegisterModalOpen(false);
+  //       setRegisterError('');
+  //       console.log('User registered successfully:', res.user);
+  //     }
+  //   } catch (err) {
+  //     console.error('Registration failed:', err.message);
+  //     console.error('Full error response:', err); // Log the full error object
+
+  //     // Check if the error has a response with a message
+  //     if (err.response && err.response.data && err.response.data.message) {
+  //       setRegisterError(`Registration failed: ${err.response.data.message}`);
+  //     } else {
+  //       setRegisterError('Registration failed. Please try again.');
+  //     }
+  //   }
+  // };
 
   const handleLogin = async (formData) => {
     try {
