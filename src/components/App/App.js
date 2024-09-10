@@ -212,17 +212,23 @@ function App() {
         console.log('User registered successfully:', res.user);
       }
     } catch (err) {
-      // Check if it's a validation error from the backend
-      if (err.response && err.response.data && err.response.data.details) {
-        const errorDetails = err.response.data.details;
-        const errorMessages = errorDetails
-          .map((errorDetail) => errorDetail.message)
-          .join(', '); // Collect all error messages
-        console.error('Validation errors:', errorMessages);
-        setRegisterError(`Validation failed: ${errorMessages}`); // Display errors to the user
+      if (err.response && err.response.data) {
+        if (err.response.data.details) {
+          // Handle validation errors from backend
+          const errorDetails = err.response.data.details;
+          const errorMessages = errorDetails
+            .map((errorDetail) => `${errorDetail.path}: ${errorDetail.message}`) // Include the field name causing the error
+            .join(', ');
+          console.error('Validation errors:', errorMessages);
+          setRegisterError(`Validation failed: ${errorMessages}`);
+        } else {
+          // Handle any other backend-provided error
+          console.error('Backend error:', err.response.data.message);
+          setRegisterError(`Error: ${err.response.data.message}`);
+        }
       } else {
         // Handle unexpected errors
-        console.error('Registration failed:', err.message);
+        console.error('Unexpected error:', err.message);
         setRegisterError('An unexpected error occurred during registration.');
       }
     }
