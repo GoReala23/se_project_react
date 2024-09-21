@@ -5,23 +5,6 @@ const baseUrl =
     ? 'https://api.what2wear.strangled.net'
     : 'http://localhost:3001';
 
-// export const registerUser = async ({ name, email, password, avatar }) => {
-//   try {
-//     const response = await fetch(`${baseUrl}/signup`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ name, email, password, avatar }),
-//     });
-//     return checkResponse(response);
-//   } catch (error) {
-//     console.error('Error during registration:', error);
-//     throw error;
-//   }
-// };
-
-// auth.js (Frontend)
 export const registerUser = async ({ name, email, password, avatar }) => {
   try {
     console.log('Sending registration request with data:', {
@@ -43,8 +26,8 @@ export const registerUser = async ({ name, email, password, avatar }) => {
     console.log('Registration response received:', data); // Log response data
     return data;
   } catch (error) {
-    console.error(`Error during registration: ${error.message}`); // Proper string interpolation for error message
-    throw error; // Re-throw error to handle it where this function is called
+    console.error(`Error during registration: ${error.message}`);
+    throw error;
   }
 };
 

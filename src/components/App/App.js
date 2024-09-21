@@ -234,31 +234,6 @@ function App() {
     }
   };
 
-  // const handleRegister = async (formData) => {
-  //   try {
-  //     console.log('Registering user:', formData);
-  //     const res = await registerUser(formData);
-  //     if (res && res.token) {
-  //       localStorage.setItem('jwt', res.token);
-  //       setCurrentUser(res.user);
-  //       setIsLoggedIn(true);
-  //       setIsRegisterModalOpen(false);
-  //       setRegisterError('');
-  //       console.log('User registered successfully:', res.user);
-  //     }
-  //   } catch (err) {
-  //     console.error('Registration failed:', err.message);
-  //     console.error('Full error response:', err); // Log the full error object
-
-  //     // Check if the error has a response with a message
-  //     if (err.response && err.response.data && err.response.data.message) {
-  //       setRegisterError(`Registration failed: ${err.response.data.message}`);
-  //     } else {
-  //       setRegisterError('Registration failed. Please try again.');
-  //     }
-  //   }
-  // };
-
   const handleLogin = async (formData) => {
     try {
       console.log('Logging in user:', formData);

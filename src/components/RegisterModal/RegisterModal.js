@@ -20,9 +20,14 @@ const RegisterModal = ({
     console.log('Attempting to register user with data:', values); // Log the form data before submission
 
     try {
-      await onRegister(values); // Make the API call to register
+      const response = await onRegister(values); // Make the API call to register
+      if (response) {
+        resetForm(); // Reset the form fields
+        onClose(); // Close the modal after successful registration
+        console.log('Registration successful'); // Log a success message
+      }
     } catch (err) {
-      if (err.response) {
+      if (err.response && err.response.data && err.response.data.message) {
         console.error('Registration failed with response:', err.response.data); // Log the server's error response
         alert(`Registration failed: ${err.response.data.message}`); // Show a user-friendly error
       } else {
@@ -30,9 +35,8 @@ const RegisterModal = ({
         alert('An unexpected error occurred during registration.');
       }
     }
-
-    resetForm(); // Ensure the form is reset after submission
   };
+
   return (
     <ModalWithForm
       isOpen={isOpen}
