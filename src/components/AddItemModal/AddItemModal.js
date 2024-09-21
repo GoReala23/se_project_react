@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import "./AddItemModal.css";
+import React, { useEffect } from 'react';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import './AddItemModal.css';
 
 const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
   const { values, handleChange, errors, isValid, resetForm } =
@@ -18,7 +18,6 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
     const newItem = {
       name: values.name,
       imageUrl: values.url,
-      type: "",
       weather: values.weather,
     };
     onAddItem(newItem);
@@ -29,47 +28,47 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
       isOpen={isOpen}
       onClose={onCloseModal}
       onSubmit={handleSubmit}
-      title="New Garment"
-      buttonText="Add Item"
+      title='New Garment'
+      buttonText='Add Item'
       isSubmitDisabled={!isValid}
     >
-      <div className="modal__form">
+      <div className='modal__form'>
         <div>
-          <label className="modal__form-label">
+          <label className='modal__form-label'>
             Name
             <input
-              className="modal__form-input"
-              type="text"
-              name="name"
-              value={values.name || ""}
+              className='modal__form-input'
+              type='text'
+              name='name'
+              value={values.name || ''}
               onChange={handleChange}
-              placeholder="Name"
+              placeholder='Name'
               required
             />
-            {errors.name && <p className="error__message">{errors.name}</p>}
+            {errors.name && <p className='error__message'>{errors.name}</p>}
           </label>
-          <label className="modal__form-label">
+          <label className='modal__form-label'>
             Image URL
             <input
-              className="modal__form-input"
-              type="url"
-              name="url"
-              value={values.url || ""}
+              className='modal__form-input'
+              type='url'
+              name='url'
+              value={values.url || ''}
               onChange={handleChange}
-              placeholder="Image URL"
+              placeholder='Image URL'
               required
             />
-            {errors.url && <p className="error__message">{errors.url}</p>}
+            {errors.url && <p className='error__message'>{errors.url}</p>}
           </label>
         </div>
-        <div className="modal__form-radios">
+        <div className='modal__form-radios'>
           Weather
           <label>
             <input
-              type="radio"
-              name="weather"
-              value="hot"
-              checked={values.weather === "hot"}
+              type='radio'
+              name='weather'
+              value='hot'
+              checked={values.weather === 'hot'}
               onChange={handleChange}
               required
             />
@@ -77,10 +76,10 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
           </label>
           <label>
             <input
-              type="radio"
-              name="weather"
-              value="cold"
-              checked={values.weather === "cold"}
+              type='radio'
+              name='weather'
+              value='cold'
+              checked={values.weather === 'cold'}
               onChange={handleChange}
               required
             />
@@ -88,10 +87,10 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
           </label>
           <label>
             <input
-              type="radio"
-              name="weather"
-              value="warm"
-              checked={values.weather === "warm"}
+              type='radio'
+              name='weather'
+              value='warm'
+              checked={values.weather === 'warm'}
               onChange={handleChange}
               required
             />

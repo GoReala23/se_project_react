@@ -5,7 +5,6 @@ import avatarDefault from '../../images/Avatar.png';
 
 const SideBar = ({ onEditProfileModal, onLogout }) => {
   const currentUser = useContext(CurrentUserContext);
-  console.log('Avatar in SideBar:', currentUser?.avatar);
   return (
     <aside className='sidebar'>
       <div className='sidebar__profile'>

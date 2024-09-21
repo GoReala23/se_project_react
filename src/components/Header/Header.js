@@ -17,7 +17,7 @@ const Header = ({
     useCurrentTemperatureUnit();
 
   const currentUser = useContext(CurrentUserContext);
-  console.log('Avatar in Header:', currentUser?.avatar || avatarDefault);
+
   const isChecked = currentTemperatureUnit === 'imperial';
 
   const displayTemperature = () => {

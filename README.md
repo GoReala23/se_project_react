@@ -76,3 +76,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Inspiration
 - etc.
   This README omits specific file references, focusing instead on the application's features, setup instructions, contribution guidelines, and licensing information, providing a clear and concise overview suitable for a GitHub project repository.
+
+## Access Information
+
+- Frontend URL: https://your-frontend-domain.com

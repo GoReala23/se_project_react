@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
-import CurrentUserContext from "../../context/CurrentUserContext";
+import React, { useContext } from 'react';
+import { useCurrentTemperatureUnit } from '../../context/CurrentTemperatureUnitContext';
+import CurrentUserContext from '../../context/CurrentUserContext';
 
-import "./ItemModal.css";
+import './ItemModal.css';
 
 const ItemModal = ({
   selectedCard,
@@ -14,14 +14,11 @@ const ItemModal = ({
   const currentUser = useContext(CurrentUserContext);
   const { currentWeather, currentTemperatureUnit } =
     useCurrentTemperatureUnit();
-  const displayUnit = currentTemperatureUnit === "imperial" ? " F°" : " C°";
+  const displayUnit = currentTemperatureUnit === 'imperial' ? ' F°' : ' C°';
 
   const handleDelete = () => {
     onDelete(selectedCard);
   };
-
-  console.log("Selected Card:", selectedCard);
-  console.log("Current Weather:", currentWeather);
 
   const normalizedCurrentWeather = currentWeather.weather.trim().toLowerCase();
   const weatherType = Array.isArray(selectedCard.weather)
@@ -29,29 +26,28 @@ const ItemModal = ({
         (weather) => weather.trim().toLowerCase() === normalizedCurrentWeather
       )
     : null;
-  console.log("Weather Type:", weatherType);
 
   return (
-    <div className={"modal"}>
-      <div className="modal__image-container">
+    <div className={'modal'}>
+      <div className='modal__image-container'>
         <button
-          className="modal__close"
-          type="button"
+          className='modal__close'
+          type='button'
           onClick={onClose}
         ></button>
         <div>
           <img
-            className="modal__image"
+            className='modal__image'
             src={selectedCard.imageUrl}
             alt={selectedCard.name}
           />
         </div>
-        <div className="modal__content-weather">
+        <div className='modal__content-weather'>
           <p>{selectedCard.name}</p>
           <p>Weather: {selectedCard.weather}</p>
           <div>
             {currentUser && (
-              <button className="modal__delete" onClick={handleDelete}>
+              <button className='modal__delete' onClick={handleDelete}>
                 Delete
               </button>
             )}

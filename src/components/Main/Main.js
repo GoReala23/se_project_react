@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import CurrentUserContext from "../../context/CurrentUserContext";
-import WeatherCard from "../WeatherBar/WeatherCard";
-import ClothesSection from "../Profile/ClothesSection";
-import "./Main.css";
-import { useCurrentTemperatureUnit } from "../../context/CurrentTemperatureUnitContext";
+import React, { useContext } from 'react';
+import CurrentUserContext from '../../context/CurrentUserContext';
+import WeatherCard from '../WeatherBar/WeatherCard';
+import ClothesSection from '../Profile/ClothesSection';
+import './Main.css';
+import { useCurrentTemperatureUnit } from '../../context/CurrentTemperatureUnitContext';
 
 const Main = ({
   clothingItems,
@@ -23,22 +23,22 @@ const Main = ({
   );
 
   return (
-    <main className="main">
-      <section className="main__weather-section">
+    <main className='main'>
+      <section className='main__weather-section'>
         <WeatherCard />
       </section>
-      <p className="main__weather-info">
+      <p className='main__weather-info'>
         {currentWeather
           ? `Today is ${
-              currentTemperatureUnit === "imperial"
+              currentTemperatureUnit === 'imperial'
                 ? currentWeather.temperature.F
                 : currentWeather.temperature.C
             } / You may want to wear: `
-          : "Loading weather..."}
+          : 'Loading weather...'}
       </p>
-      <section className="main__clothes-container">
+      <section className='main__clothes-container'>
         <ClothesSection
-          className="clothes__section-container--4"
+          className='clothes__section-container--4'
           clothingItems={filteredItems}
           onSelectCard={onSelectCard}
           onCreateModal={onCreateModal}
